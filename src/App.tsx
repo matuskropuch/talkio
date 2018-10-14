@@ -7,10 +7,16 @@ import { ChannelDetail } from './components/ChannelDetail';
 export class App extends React.PureComponent {
   render() {
     return (
-      <div className="container">
+      <div>
         <Navbar />
-        <ChannelList />
-        <ChannelDetail />
+        <div className="row">
+          <div className="col-3">
+            <ChannelList />
+          </div>
+          <div className="col-9">
+            <ChannelDetail />
+          </div>
+        </div>
       </div>
     );
   }
