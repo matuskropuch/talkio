@@ -7,9 +7,9 @@ import { ChannelDetail } from './components/ChannelDetail';
 export class App extends React.PureComponent {
   render() {
     return (
-      <div>
+      <div className="h-100 d-flex flex-column">
         <Navbar />
-        <div className="row">
+        <div className="row flex-grow-1">
           <div className="col-3">
             <ChannelList />
           </div>
