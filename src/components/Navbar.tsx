@@ -1,10 +1,16 @@
 import * as React from 'react';
 
+import { ProfileButton } from './ProfileButton';
+
 export class Navbar extends React.PureComponent {
   render() {
     return (
-      <nav className="navbar navbar-light bg-dark">
-        <span className="navbar-brand mb-0 h1 text-white">Talkio</span>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <a className="navbar-brand" href="#">Navbar</a>
+
+        <div className="navbar-nav ml-auto">
+          <ProfileButton />
+        </div>
       </nav>
     );
   }
