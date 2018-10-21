@@ -23,7 +23,7 @@ export class ChannelList extends React.PureComponent<{}, ChannelListState> {
     };
   }
 
-  render() {
+  render(): JSX.Element {
     const channels = this.state.channels.map(channel => (
       <ChannelListItem
         name={channel.name}

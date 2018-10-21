@@ -4,7 +4,7 @@ import { ChannelList } from './ChannelList';
 import { AddChannelButton } from './AddChannelButton';
 
 export class Sidebar extends React.PureComponent {
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <ChannelList />

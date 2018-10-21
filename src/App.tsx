@@ -5,7 +5,7 @@ import { Sidebar } from './components/Sidebar';
 import { ChannelDetail } from './components/ChannelDetail';
 
 export class App extends React.PureComponent {
-  render() {
+  render(): JSX.Element {
     return (
       <div className="h-100 d-flex flex-column">
         <Navbar />

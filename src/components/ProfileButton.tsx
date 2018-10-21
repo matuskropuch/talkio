@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export class ProfileButton extends React.PureComponent {
-  render() {
+  render(): JSX.Element {
     return (
       <div className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
