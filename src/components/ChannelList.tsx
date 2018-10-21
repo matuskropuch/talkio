@@ -32,7 +32,7 @@ export class ChannelList extends React.PureComponent<{}, ChannelListState> {
     ));
 
     return (
-      <div className="h-100 bg-light list-group list-group-flush">
+      <div className="h-100 list-group list-group-flush">
         {channels}
       </div>
     );
