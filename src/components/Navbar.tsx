@@ -6,7 +6,7 @@ export class Navbar extends React.PureComponent {
   render() {
     return (
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a className="navbar-brand" href="#">Navbar</a>
+        <a className="navbar-brand" href="#">Talkio</a>
 
         <div className="navbar-nav ml-auto">
           <ProfileButton />

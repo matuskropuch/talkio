@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Navbar } from './components/Navbar';
-import { ChannelList } from './components/ChannelList';
+import { Sidebar } from './components/Sidebar';
 import { ChannelDetail } from './components/ChannelDetail';
 
 export class App extends React.PureComponent {
@@ -9,11 +9,11 @@ export class App extends React.PureComponent {
     return (
       <div className="h-100 d-flex flex-column">
         <Navbar />
-        <div className="row flex-grow-1">
-          <div className="col-3">
-            <ChannelList />
+        <div className="row flex-grow-1 no-gutters">
+          <div className="col-2" style={{ borderRight: '1px solid rgb(223, 223, 223)' }}>
+            <Sidebar />
           </div>
-          <div className="col-9">
+          <div className="col-10">
             <ChannelDetail />
           </div>
         </div>
