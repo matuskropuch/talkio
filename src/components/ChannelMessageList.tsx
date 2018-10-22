@@ -16,7 +16,7 @@ export class ChannelMessageList extends React.PureComponent<{}, ChannelMessageLi
 
     this.state = {
       messages: [
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
+        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
         { text: 'sup dude how you doin' }
       ]
     };

@@ -16,7 +16,7 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
             {this.props.text}
           </div>
           <a href="#">
-            <i class="fas fa-ellipsis-v"></i>
+            <i className="fas fa-ellipsis-v"></i>
           </a>
         </div>
       </div>
