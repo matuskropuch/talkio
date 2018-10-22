@@ -10,7 +10,7 @@ export class ChannelToolbar extends React.PureComponent {
           <ChannelNameEditor />
         </div>
         <div className="flex-grow-1 pr-4 mt-auto mb-auto">
-          <a href="#" className="">
+          <a href="#">
             <i className="fas fa-user-plus"></i>
           </a>
         </div>

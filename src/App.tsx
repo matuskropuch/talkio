@@ -13,7 +13,7 @@ export class App extends React.PureComponent {
           <div className="col-2 bg-light" style={{ borderRight: '1px solid rgb(223, 223, 223)' }}>
             <Sidebar />
           </div>
-          <div className="col-10">
+          <div className="col-10 d-flex">
             <ChannelDetail />
           </div>
         </div>

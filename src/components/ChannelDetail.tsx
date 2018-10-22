@@ -1,13 +1,22 @@
 import * as React from 'react';
 
 import { ChannelToolbar } from './ChannelToolbar';
+import { ChannelMessageList } from './ChannelMessageList';
+import { ChannelMessageInput } from './ChannelMessageInput';
 
 export class ChannelDetail extends React.PureComponent {
   render(): JSX.Element {
     return (
-      <div>
-        <ChannelToolbar />
-        <h2>This is detail</h2>
+      <div className="d-flex flex-column flex-grow-1">
+        <div>
+          <ChannelToolbar />
+        </div>
+        <div className="flex-grow-1 d-flex">
+          <ChannelMessageList />
+        </div>
+        <div>
+          <ChannelMessageInput />
+        </div>
       </div>
     );
   }
