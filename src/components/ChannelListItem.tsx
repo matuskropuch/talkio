@@ -9,7 +9,7 @@ export class ChannelListItem extends React.PureComponent<ChannelListItemProps, {
   render(): JSX.Element {
     return (
       <a href="#" className={`list-group-item list-group-item-action ${this.props.isActive ? 'active' : ''}`}>
-        <span>{this.props.name}</span>
+        {this.props.name}
       </a>
     );
   }

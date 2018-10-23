@@ -35,7 +35,7 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
       output = (
         <form className="form-inline" action="#" method="post" onSubmit={this.onNameSubmit} >
           <div className="form-group">
-            <input type="text" className="form-control" value={this.state.channelName} onChange={this.onNameChange} />
+            <input type="text" className="form-control form-control-sm" value={this.state.channelName} onChange={this.onNameChange} />
           </div>
         </form>
       );
