@@ -29,10 +29,8 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
   }
 
   render() {
-    let output = null;
-
     if (this.state.editing) {
-      output = (
+      return (
         <form className="form-inline" action="#" method="post" onSubmit={this.onNameSubmit} >
           <div className="form-group">
             <input type="text" className="form-control form-control-sm" value={this.state.channelName} onChange={this.onNameChange} />
@@ -40,8 +38,7 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
         </form>
       );
     } else {
-      output = <span onClick={this.onNameClick}>{this.state.channelName}</span>;
+      return <span onClick={this.onNameClick}>{this.state.channelName}</span>;
     }
-    return output;
   }
 }
