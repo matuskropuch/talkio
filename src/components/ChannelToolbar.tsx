@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { ChannelNameEditor } from './ChannelNameEditor';
 
 export class ChannelToolbar extends React.PureComponent {
@@ -11,11 +13,11 @@ export class ChannelToolbar extends React.PureComponent {
         </div>
         <div className="flex-grow-1 pr-4 my-auto">
           <a href="#">
-            <i className="fas fa-user-plus"></i>
+            <FontAwesomeIcon icon="user-plus" />
           </a>
         </div>
         <a href="#" className="text-danger pr-4 my-auto">
-          <i className="fas fa-trash"></i>
+          <FontAwesomeIcon icon="trash" />
         </a>
       </div>
     );

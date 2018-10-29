@@ -10,6 +10,11 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEllipsisV, faUser, faUserPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 import { App } from './App.tsx';
+
+library.add(faEllipsisV, faUser, faUserPlus, faTrash);
 
 ReactDOM.render(<App />, document.getElementById('app-root'));
