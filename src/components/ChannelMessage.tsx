@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 interface ChannelMessageProps {
   readonly text: string;
 }
@@ -16,7 +18,7 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
             {this.props.text}
           </div>
           <a href="#">
-            <i className="fas fa-ellipsis-v"></i>
+            <FontAwesomeIcon icon="ellipsis-v" />
           </a>
         </div>
       </div>

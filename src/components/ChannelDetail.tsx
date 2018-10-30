@@ -14,7 +14,7 @@ export class ChannelDetail extends React.PureComponent {
         <div className="flex-grow-1 d-flex">
           <ChannelMessageList />
         </div>
-        <div>
+        <div className="pt-3">
           <ChannelMessageInput />
         </div>
       </div>
