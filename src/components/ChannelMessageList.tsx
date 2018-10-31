@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ChannelMessage } from './ChannelMessage';
 
 interface Message {
-  text: string;
+  readonly text: string;
 }
 
 interface ChannelMessageListState {

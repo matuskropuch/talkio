@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 interface ChannelListItemProps {
-  name: string;
-  isActive: boolean;
+  readonly name: string;
+  readonly isActive: boolean;
 }
 
 export class ChannelListItem extends React.PureComponent<ChannelListItemProps, {}> {

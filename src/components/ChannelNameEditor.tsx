@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 interface ChannelNameEditorState {
-  channelName: string;
-  editing: boolean;
+  readonly channelName: string;
+  readonly editing: boolean;
 }
 
 export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditorState> {
