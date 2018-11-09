@@ -13,13 +13,14 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './reducers/rootReducer.ts';
+import { defaultState } from './defaultState.ts';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEllipsisV, faUser, faUserPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { App } from './App.tsx';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, defaultState);
 
 library.add(faEllipsisV, faUser, faUserPlus, faTrash);
 

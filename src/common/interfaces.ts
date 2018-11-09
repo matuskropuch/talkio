@@ -1,6 +1,7 @@
 import * as Immutable from 'immutable';
 
 export type Uuid = string;
+export type UnixTime = number;
 
 export interface Action {
   type: string;
@@ -11,7 +12,7 @@ export interface IMessage {
   text: string;
   author: string;
   score: number;
-  timestamp: Date;
+  timestamp: UnixTime;
 }
 
 export interface IChannel {
