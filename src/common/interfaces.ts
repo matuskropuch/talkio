@@ -9,6 +9,7 @@ export interface Action {
 }
 
 export interface IMessage {
+  readonly id: Uuid;
   readonly text: string;
   readonly author: string;
   readonly score: number;
@@ -16,6 +17,7 @@ export interface IMessage {
 }
 
 export interface IChannel {
+  readonly id: Uuid;
   readonly name: string;
   readonly messages: Immutable.List<Uuid>;
   readonly isActive: boolean;

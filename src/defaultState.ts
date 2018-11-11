@@ -1,25 +1,10 @@
 import * as Immutable from 'immutable';
-// import * as uuid from 'uuid';
+import * as uuid from 'uuid';
+
 import { Uuid, IChannel, IMessage, IUser } from './common/interfaces';
 
-const channel: IChannel = {
-  name: 'Channel 1',
-  messages: Immutable.List<Uuid>(['1', '2', '3']),
-  isActive: true
-};
-
-const channel2: IChannel = {
-  name: 'Channel 2',
-  messages: Immutable.List<Uuid>(['4', '5', '6']),
-  isActive: false
-};
-
-const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
-  ['1', channel],
-  ['2', channel2]
-]);
-
 const message: IMessage = {
+  id: uuid(),
   text: 'Is this working?',
   author: 'Theresa',
   score: -10,
@@ -27,6 +12,7 @@ const message: IMessage = {
 };
 
 const message2: IMessage = {
+  id: uuid(),
   text: 'Nope',
   author: 'James',
   score: -999,
@@ -34,12 +20,27 @@ const message2: IMessage = {
 };
 
 const messages: Immutable.Map<Uuid, IMessage> = Immutable.Map([
-  ['1', message],
-  ['2', message2],
-  ['3', message],
-  ['4', message2],
-  ['5', message],
-  ['6', message2],
+  [message.id, message],
+  [message2.id, message2],
+]);
+
+const channel: IChannel = {
+  id: uuid(),
+  name: 'Channel 1',
+  messages: Immutable.List<Uuid>([message.id, message2.id, message.id]),
+  isActive: true
+};
+
+const channel2: IChannel = {
+  id: uuid(),
+  name: 'Channel 2',
+  messages: Immutable.List<Uuid>([message2.id, message.id, message2.id]),
+  isActive: false
+};
+
+const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
+  [channel.id, channel],
+  [channel2.id, channel2]
 ]);
 
 const user: IUser = {
