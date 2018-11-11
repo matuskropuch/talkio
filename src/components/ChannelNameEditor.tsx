@@ -42,10 +42,10 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
           </div>
         </form>
       );
-    } else {
-      return (
-        <span onClick={this.onNameClick}>{this.state.channelName}</span>
-      );
     }
+
+    return (
+      <span onClick={this.onNameClick}>{this.state.channelName}</span>
+    );
   }
 }
