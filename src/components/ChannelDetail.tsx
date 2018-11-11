@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ChannelToolbar } from './ChannelToolbar';
-import { ChannelMessageList } from './ChannelMessageList';
+import { ChannelMessageListContainer } from '../containers/ChannelMessageListContainer';
 import { ChannelMessageInput } from './ChannelMessageInput';
 
 export class ChannelDetail extends React.PureComponent {
@@ -12,7 +12,7 @@ export class ChannelDetail extends React.PureComponent {
           <ChannelToolbar />
         </div>
         <div className="flex-grow-1 d-flex">
-          <ChannelMessageList />
+          <ChannelMessageListContainer />
         </div>
         <div className="pt-3">
           <ChannelMessageInput />

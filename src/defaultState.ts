@@ -27,13 +27,13 @@ const messages: Immutable.Map<Uuid, IMessage> = Immutable.Map([
 const channel: IChannel = {
   id: uuid(),
   name: 'Channel 1',
-  messages: Immutable.List<Uuid>([message.id, message2.id, message.id])
+  messages: Immutable.List<Uuid>([message.id])
 };
 
 const channel2: IChannel = {
   id: uuid(),
   name: 'Channel 2',
-  messages: Immutable.List<Uuid>([message2.id, message.id, message2.id])
+  messages: Immutable.List<Uuid>([message2.id])
 };
 
 const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([

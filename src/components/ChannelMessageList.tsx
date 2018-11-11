@@ -1,38 +1,16 @@
 import * as React from 'react';
+import * as Immutable from 'immutable';
 
 import { ChannelMessage } from './ChannelMessage';
+import { IMessage, Uuid } from '../common/interfaces';
 
-interface Message {
-  readonly text: string;
+export interface IChannelMessageListProps {
+  readonly messages: Immutable.Map<Uuid, IMessage>;
 }
 
-interface ChannelMessageListState {
-  readonly messages: Message[];
-}
-
-export class ChannelMessageList extends React.PureComponent<{}, ChannelMessageListState> {
-  constructor(props: never) {
-    super(props);
-
-    this.state = {
-      messages: [
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man hey yo this is message man ' },
-        { text: 'sup dude how you doin' }
-      ]
-    };
-  }
-
+export class ChannelMessageList extends React.PureComponent<IChannelMessageListProps, {}> {
   render(): JSX.Element {
-    const messages = this.state.messages.map(message => <ChannelMessage text={message.text} key={Math.random()} />);
+    const messages = this.props.messages.toList().map(message => <ChannelMessage text={message.text} key={message.id} />);
 
     return (
       <div className="flex-grow-1 d-flex flex-column-reverse" style={{ overflow: 'scroll' }}>
