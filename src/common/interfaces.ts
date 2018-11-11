@@ -20,7 +20,6 @@ export interface IChannel {
   readonly id: Uuid;
   readonly name: string;
   readonly messages: Immutable.List<Uuid>;
-  readonly isActive: boolean;
 }
 
 export interface IUser {
@@ -33,4 +32,5 @@ export interface IState {
   channels: Immutable.Map<Uuid, IChannel>;
   messages: Immutable.Map<Uuid, IMessage>;
   user: IUser;
+  activeChannel: Uuid;
 }

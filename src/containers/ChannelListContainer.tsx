@@ -1,10 +1,17 @@
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
-import { ChannelList, IChannelListProps } from '../components/ChannelList';
-import { IState } from '../common/interfaces';
+import { ChannelList, IChannelListStateProps, IChannelListDispatchProps } from '../components/ChannelList';
+import { IState, Uuid } from '../common/interfaces';
+import { selectChannel } from '../actions/actionCreators';
 
-const mapStateToProps = (state: IState): IChannelListProps => ({
-  channels: state.channels
+const mapStateToProps = (state: IState): IChannelListStateProps => ({
+  channels: state.channels,
+  activeChannel: state.activeChannel
 });
 
-export const ChannelListContainer = connect(mapStateToProps)(ChannelList);
+const mapDispatchToProps = (dispatch: Dispatch): IChannelListDispatchProps => ({
+  onChannelSelect: (id: Uuid) => dispatch(selectChannel(id))
+});
+
+export const ChannelListContainer = connect(mapStateToProps, mapDispatchToProps)(ChannelList);
