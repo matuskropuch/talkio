@@ -9,21 +9,22 @@ export interface Action {
 }
 
 export interface IMessage {
-  text: string;
-  author: string;
-  score: number;
-  timestamp: UnixTime;
+  readonly text: string;
+  readonly author: string;
+  readonly score: number;
+  readonly timestamp: UnixTime;
 }
 
 export interface IChannel {
-  name: string;
-  messages: Immutable.List<Uuid>;
+  readonly name: string;
+  readonly messages: Immutable.List<Uuid>;
+  readonly isActive: boolean;
 }
 
 export interface IUser {
-  email: string;
-  name: string;
-  avatarUrl: string;
+  readonly email: string;
+  readonly name: string;
+  readonly avatarUrl: string;
 }
 
 export interface IState {

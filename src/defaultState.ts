@@ -4,12 +4,14 @@ import { Uuid, IChannel, IMessage, IUser } from './common/interfaces';
 
 const channel: IChannel = {
   name: 'Channel 1',
-  messages: Immutable.List<Uuid>(['1', '2', '3'])
+  messages: Immutable.List<Uuid>(['1', '2', '3']),
+  isActive: true
 };
 
 const channel2: IChannel = {
   name: 'Channel 2',
-  messages: Immutable.List<Uuid>(['4', '5', '6'])
+  messages: Immutable.List<Uuid>(['4', '5', '6']),
+  isActive: false
 };
 
 const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([

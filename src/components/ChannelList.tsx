@@ -1,30 +1,17 @@
 import * as React from 'react';
+import * as Immutable from 'immutable';
 
+import { IChannel, Uuid } from '../common/interfaces';
 import { ChannelListItem } from './ChannelListItem';
 
-interface Channel {
-  readonly name: string;
-  readonly isActive: boolean;
+export interface IChannelListProps {
+  readonly channels: Immutable.Map<Uuid, IChannel>;
 }
 
-interface ChannelListState {
-  readonly channels: Channel[];
-}
-
-export class ChannelList extends React.PureComponent<{}, ChannelListState> {
-  constructor(props: never) {
-    super(props);
-
-    this.state = {
-      channels: [
-        { name: 'Channel 1', isActive: true},
-        { name: 'Channel 2', isActive: false }
-      ]
-    };
-  }
+export class ChannelList extends React.PureComponent<IChannelListProps, {}> {
 
   render(): JSX.Element {
-    const channels = this.state.channels.map(channel => (
+    const channels = this.props.channels.toList().map(channel => (
       <ChannelListItem
         name={channel.name}
         isActive={channel.isActive}
