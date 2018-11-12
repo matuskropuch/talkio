@@ -1,10 +1,20 @@
 import * as React from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ChannelNameEditor } from './ChannelNameEditor';
+import { Uuid } from '../common/interfaces';
 
-export class ChannelToolbar extends React.PureComponent {
+export interface IChannelToolbarDispatchProps {
+  onChannelDelete: (id: Uuid) => void;
+}
+
+export interface IChannelToolbarStateProps {
+  channelId: Uuid;
+}
+
+type IChannelToolbarProps = IChannelToolbarDispatchProps & IChannelToolbarStateProps;
+
+export class ChannelToolbar extends React.PureComponent<IChannelToolbarProps, {}> {
   render(): JSX.Element {
     return (
       <div className="d-flex bg-light">
@@ -16,7 +26,7 @@ export class ChannelToolbar extends React.PureComponent {
             <FontAwesomeIcon icon="user-plus" />
           </a>
         </div>
-        <a href="#" className="text-danger pr-4 my-auto">
+        <a href="#" className="text-danger pr-4 my-auto" onClick={() => this.props.onChannelDelete(this.props.channelId)}>
           <FontAwesomeIcon icon="trash" />
         </a>
       </div>
