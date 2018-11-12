@@ -10,8 +10,9 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/rootReducer.ts';
 import { defaultState } from './defaultState.ts';
 
@@ -20,7 +21,7 @@ import { faEllipsisV, faUser, faUserPlus, faTrash } from '@fortawesome/free-soli
 
 import { App } from './App.tsx';
 
-const store = createStore(rootReducer, defaultState);
+const store = createStore(rootReducer, defaultState, applyMiddleware(thunk));
 
 library.add(faEllipsisV, faUser, faUserPlus, faTrash);
 
