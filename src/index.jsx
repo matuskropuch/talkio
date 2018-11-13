@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/rootReducer.ts';
@@ -21,7 +21,10 @@ import { faEllipsisV, faUser, faUserPlus, faTrash } from '@fortawesome/free-soli
 
 import { App } from './App.tsx';
 
-const store = createStore(rootReducer, defaultState, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, defaultState, composeEnhancers(
+  applyMiddleware(thunk))
+);
 
 library.add(faEllipsisV, faUser, faUserPlus, faTrash);
 
