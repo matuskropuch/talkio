@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 
 import { Uuid, IChannel, Action } from '../common/interfaces';
-import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME } from '../constants/actionTypes';
+import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND } from '../constants/actionTypes';
 
 export const channels = (prevState: Immutable.Map<Uuid, IChannel>, action: Action): Immutable.Map<Uuid, IChannel> => {
   switch (action.type) {
@@ -29,6 +29,22 @@ export const channels = (prevState: Immutable.Map<Uuid, IChannel>, action: Actio
         name: newName,
         messages
       });
+    }
+
+    case MESSAGE_SEND: {
+      const { channelId, message } = action.payload;
+      const oldChannel = prevState.get(channelId);
+
+      if (oldChannel === undefined) {
+        throw Error('Submitting message to nonexistent channel');
+      }
+
+      const newChannel: IChannel = {
+        ...oldChannel,
+        messages: oldChannel.messages.push(message.id)
+      };
+
+      return prevState.set(newChannel.id, newChannel);
     }
 
     default: {

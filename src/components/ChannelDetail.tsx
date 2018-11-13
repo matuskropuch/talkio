@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ChannelToolbarContainer } from '../containers/ChannelToolbarContainer';
 import { ChannelMessageListContainer } from '../containers/ChannelMessageListContainer';
-import { ChannelMessageInput } from './ChannelMessageInput';
+import { ChannelMessageInputContainer } from '../containers/ChannelMessageInputContainer';
 
 export class ChannelDetail extends React.PureComponent {
   render(): JSX.Element {
@@ -15,7 +15,7 @@ export class ChannelDetail extends React.PureComponent {
           <ChannelMessageListContainer />
         </div>
         <div className="pt-3">
-          <ChannelMessageInput />
+          <ChannelMessageInputContainer />
         </div>
       </div>
     );

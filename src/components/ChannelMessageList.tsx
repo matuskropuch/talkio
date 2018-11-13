@@ -10,7 +10,9 @@ export interface IChannelMessageListProps {
 
 export class ChannelMessageList extends React.PureComponent<IChannelMessageListProps, {}> {
   render(): JSX.Element {
-    const messages = this.props.messages.toList().map(message => <ChannelMessage text={message.text} key={message.id} />);
+    const messages = this.props.messages.toList()
+                                        .sort((m1, m2) => m2.timestamp - m1.timestamp)
+                                        .map(message => <ChannelMessage text={message.text} key={message.id} />);
 
     return (
       <div className="flex-grow-1 d-flex flex-column-reverse" style={{ overflow: 'scroll' }}>
