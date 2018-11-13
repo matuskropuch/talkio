@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { ChannelNameEditor } from './ChannelNameEditor';
+import { ChannelNameEditorContainer } from '../containers/ChannelNameEditorContainer';
 import { Uuid } from '../common/interfaces';
 
 export interface IChannelToolbarDispatchProps {
@@ -19,7 +19,7 @@ export class ChannelToolbar extends React.PureComponent<IChannelToolbarProps, {}
     return (
       <div className="d-flex bg-light">
         <div className="p-3">
-          <ChannelNameEditor />
+          <ChannelNameEditorContainer />
         </div>
         <div className="flex-grow-1 pr-4 my-auto">
           <a href="#">

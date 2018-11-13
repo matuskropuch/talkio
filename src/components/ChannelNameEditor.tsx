@@ -1,21 +1,36 @@
 import * as React from 'react';
+import { Uuid } from '../common/interfaces';
 
-interface ChannelNameEditorState {
+export interface ChannelNameEditorStateProps {
+  readonly channelId: Uuid;
   readonly channelName: string;
+}
+
+export interface ChannelNameEditorDispatchProps {
+  readonly onChannelRename: (id: Uuid, name: string) => void;
+}
+
+interface ChannelNameEditorLocalState {
+  readonly partialChannelName: string;
   readonly editing: boolean;
 }
 
-export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditorState> {
-  constructor(props: never) {
+type ChannelNameEditorProps = ChannelNameEditorStateProps & ChannelNameEditorDispatchProps;
+
+export class ChannelNameEditor extends React.PureComponent<ChannelNameEditorProps, ChannelNameEditorLocalState> {
+  constructor(props: ChannelNameEditorProps) {
     super(props);
 
-    this.state = { channelName: 'Channel 1', editing: false };
+    this.state = {
+      partialChannelName: this.props.channelName,
+      editing: false
+    };
   }
 
   onNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newValue = event.target.value;
 
-    this.setState(() => ({ channelName: newValue }));
+    this.setState(() => ({ partialChannelName: newValue }));
   }
 
   onNameClick = (_: React.MouseEvent<HTMLParagraphElement>): void => {
@@ -25,6 +40,7 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
   onNameSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
+    this.props.onChannelRename(this.props.channelId, this.state.partialChannelName);
     this.setState(() => ({ editing: false }));
   }
 
@@ -36,7 +52,7 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
             <input
               type="text"
               className="form-control form-control-sm"
-              value={this.state.channelName}
+              value={this.state.partialChannelName}
               onChange={this.onNameChange}
               autoFocus />
           </div>
@@ -45,7 +61,7 @@ export class ChannelNameEditor extends React.PureComponent<{}, ChannelNameEditor
     }
 
     return (
-      <span onClick={this.onNameClick}>{this.state.channelName}</span>
+      <span onClick={this.onNameClick}>{this.props.channelName}</span>
     );
   }
 }
