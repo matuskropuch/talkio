@@ -5,11 +5,11 @@ import { ChannelNameEditorContainer } from '../containers/ChannelNameEditorConta
 import { Uuid } from '../common/interfaces';
 
 export interface IChannelToolbarDispatchProps {
-  onChannelDelete: (id: Uuid) => void;
+  readonly onChannelDelete: (id: Uuid) => void;
 }
 
 export interface IChannelToolbarStateProps {
-  channelId: Uuid;
+  readonly channelId: Uuid;
 }
 
 type IChannelToolbarProps = IChannelToolbarDispatchProps & IChannelToolbarStateProps;

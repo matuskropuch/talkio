@@ -2,17 +2,17 @@ import * as React from 'react';
 import { Uuid } from '../common/interfaces';
 
 export interface IChannelMessageInputStateProps {
-  channelId: Uuid;
+  readonly channelId: Uuid;
 }
 
 export interface IChannelMessageInputDispatchProps {
-  onMessageSend: (channelId: Uuid, text: string) => void;
+  readonly onMessageSend: (channelId: Uuid, text: string) => void;
 }
 
 type IChannelMessageInputProps = IChannelMessageInputStateProps & IChannelMessageInputDispatchProps;
 
 interface IChannelMessageInputLocalState {
-  text: string;
+  readonly text: string;
 }
 
 export class ChannelMessageInput extends React.PureComponent<IChannelMessageInputProps, IChannelMessageInputLocalState> {
