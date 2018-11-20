@@ -22,12 +22,14 @@ export const channels = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Ma
     case CHANNEL_RENAME: {
       const {id, newName} = action.payload;
       const oldChannel = prevState.get(id);
-      const messages = oldChannel === undefined ? Immutable.List<Uuid>() : oldChannel.messages;
+
+      if (oldChannel === undefined) {
+        throw Error('Renaming nonexistent channel');
+      }
 
       return prevState.set(id, {
-        id,
-        name: newName,
-        messages
+        ...oldChannel,
+        name: newName
       });
     }
 
