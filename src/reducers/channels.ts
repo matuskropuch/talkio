@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 import { Uuid, IChannel, Action } from '../common/interfaces';
 import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND } from '../constants/actionTypes';
 
-export const channels = (prevState: Immutable.Map<Uuid, IChannel>, action: Action): Immutable.Map<Uuid, IChannel> => {
+export const channels = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
   switch (action.type) {
     case CHANNEL_CREATE: {
       const { id, name } = action.payload;

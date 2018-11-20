@@ -1,6 +1,12 @@
 import { IUser, Action } from '../common/interfaces';
 
-export const user = (prevState: IUser, action: Action): IUser => {
+const emptyUser: IUser = {
+  name: '',
+  avatarUrl: '',
+  email: ''
+};
+
+export const user = (prevState: IUser = emptyUser, action: Action): IUser => {
   (action as any) = {};
   return prevState;
 };
