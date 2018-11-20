@@ -27,10 +27,10 @@ export const deleteChannel = (id: Uuid, messagesToDelete: Immutable.List<Uuid>):
   }
 });
 
-export const renameChannel = (id: Uuid, newName: string): Action => ({
+export const renameChannel = (channelId: Uuid, newName: string): Action => ({
   type: CHANNEL_RENAME,
   payload: {
-    id,
+    channelId,
     newName
   }
 });
