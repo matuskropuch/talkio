@@ -19,7 +19,7 @@ export const selectChannel = (id: Uuid): Action => ({
   }
 });
 
-export const deleteChannel = (id: Uuid, messagesToDelete: Immutable.List<Uuid>): Action => ({
+export const deleteChannel = (id: Uuid, messagesToDelete: Immutable.Map<Uuid, IMessage>): Action => ({
   type: CHANNEL_DELETE,
   payload: {
     id,
