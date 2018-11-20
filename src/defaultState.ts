@@ -8,7 +8,7 @@ const message: IMessage = {
   text: 'Is this working?',
   author: 'Theresa',
   score: -10,
-  timestamp: Date.now()
+  createdAt: Date.now()
 };
 
 const message2: IMessage = {
@@ -16,7 +16,7 @@ const message2: IMessage = {
   text: 'Nope',
   author: 'James',
   score: -999,
-  timestamp: Date.now()
+  createdAt: Date.now()
 };
 
 const messages: Immutable.Map<Uuid, IMessage> = Immutable.Map([

@@ -11,7 +11,7 @@ export interface IChannelMessageListProps {
 export class ChannelMessageList extends React.PureComponent<IChannelMessageListProps, {}> {
   render(): JSX.Element {
     const messages = this.props.messages.toList()
-                                        .sort((m1, m2) => m2.timestamp - m1.timestamp)
+                                        .sort((m1, m2) => m2.createdAt - m1.createdAt)
                                         .map(message => <ChannelMessage text={message.text} key={message.id} />);
 
     return (

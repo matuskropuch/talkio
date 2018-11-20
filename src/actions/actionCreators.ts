@@ -44,7 +44,7 @@ export const sendMessage = (channelId: Uuid, text: string): Action => ({
       author: 'asdf',
       score: 0,
       text,
-      timestamp: Date.now()
+      createdAt: Date.now()
     } as IMessage
   }
 });

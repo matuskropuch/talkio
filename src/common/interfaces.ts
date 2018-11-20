@@ -13,7 +13,7 @@ export interface IMessage {
   readonly text: string;
   readonly author: string;
   readonly score: number;
-  readonly timestamp: UnixTime;
+  readonly createdAt: UnixTime;
 }
 
 export interface IChannel {
