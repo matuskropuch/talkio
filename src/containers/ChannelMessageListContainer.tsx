@@ -14,7 +14,7 @@ const mapStateToProps = (state: IState): IChannelMessageListProps => {
   }
 
   return {
-    messages: state.messages.filter(message => activeChannel.messages.contains(message.id))
+    messages: activeChannel.messages
   };
 };
 

@@ -1,17 +1,18 @@
 import * as Immutable from 'immutable';
 
-import { Uuid, IChannel, Action } from '../common/interfaces';
+import { Uuid, IChannel, Action, IMessage } from '../common/interfaces';
 import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND } from '../constants/actionTypes';
 
-export const channels = (prevState: Immutable.Map<Uuid, IChannel>, action: Action): Immutable.Map<Uuid, IChannel> => {
+export const channels = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
   switch (action.type) {
     case CHANNEL_CREATE: {
-      const { id, name } = action.payload;
+      const { id, name, creatorId } = action.payload;
 
       return prevState.set(action.payload.id, {
         id,
         name,
-        messages: Immutable.List<Uuid>()
+        messages: Immutable.Map<Uuid, IMessage>(),
+        allowedUsers: Immutable.Set<Uuid>(creatorId)
       });
     }
 
@@ -20,15 +21,19 @@ export const channels = (prevState: Immutable.Map<Uuid, IChannel>, action: Actio
     }
 
     case CHANNEL_RENAME: {
-      const {id, newName} = action.payload;
-      const oldChannel = prevState.get(id);
-      const messages = oldChannel === undefined ? Immutable.List<Uuid>() : oldChannel.messages;
+      const {channelId, newName} = action.payload;
+      const oldChannel = prevState.get(channelId);
 
-      return prevState.set(id, {
-        id,
-        name: newName,
-        messages
-      });
+      if (oldChannel === undefined) {
+        throw Error('Renaming nonexistent channel');
+      }
+
+      const newChannel: IChannel = {
+        ...oldChannel,
+        name: newName
+      };
+
+      return prevState.set(channelId, newChannel);
     }
 
     case MESSAGE_SEND: {
@@ -41,7 +46,7 @@ export const channels = (prevState: Immutable.Map<Uuid, IChannel>, action: Actio
 
       const newChannel: IChannel = {
         ...oldChannel,
-        messages: oldChannel.messages.push(message.id)
+        messages: oldChannel.messages.set(message.id, message)
       };
 
       return prevState.set(newChannel.id, newChannel);

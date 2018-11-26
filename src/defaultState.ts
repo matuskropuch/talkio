@@ -3,12 +3,19 @@ import * as uuid from 'uuid';
 
 import { Uuid, IChannel, IMessage, IUser, IState } from './common/interfaces';
 
+const currentUser: IUser = {
+  id: uuid(),
+  email: 'jacob@boss.net',
+  name: 'Jacob',
+  avatarUrl: ''
+};
+
 const message: IMessage = {
   id: uuid(),
   text: 'Is this working?',
   author: 'Theresa',
   score: -10,
-  timestamp: Date.now()
+  createdAt: Date.now()
 };
 
 const message2: IMessage = {
@@ -16,10 +23,10 @@ const message2: IMessage = {
   text: 'Nope',
   author: 'James',
   score: -999,
-  timestamp: Date.now()
+  createdAt: Date.now()
 };
 
-const messages: Immutable.Map<Uuid, IMessage> = Immutable.Map([
+const channelMessages: Immutable.Map<Uuid, IMessage> = Immutable.Map([
   [message.id, message],
   [message2.id, message2],
 ]);
@@ -27,13 +34,15 @@ const messages: Immutable.Map<Uuid, IMessage> = Immutable.Map([
 const channel: IChannel = {
   id: uuid(),
   name: 'Channel 1',
-  messages: Immutable.List<Uuid>([message.id])
+  messages: channelMessages,
+  allowedUsers: Immutable.Set<Uuid>([currentUser.id])
 };
 
 const channel2: IChannel = {
   id: uuid(),
   name: 'Channel 2',
-  messages: Immutable.List<Uuid>([message2.id])
+  messages: channelMessages,
+  allowedUsers: Immutable.Set<Uuid>([currentUser.id])
 };
 
 const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
@@ -41,15 +50,10 @@ const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
   [channel2.id, channel2]
 ]);
 
-const user: IUser = {
-  email: 'jacob@boss.net',
-  name: 'Jacob',
-  avatarUrl: ''
-};
-
 export const defaultState: IState = {
   channels,
-  messages,
-  user,
-  activeChannel: channel.id
+  users: Immutable.Map<Uuid, IUser>([ [currentUser.id, currentUser] ]),
+  currentUser: currentUser.id,
+  activeChannel: channel.id,
+  appId: uuid()
 };

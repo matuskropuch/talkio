@@ -13,16 +13,18 @@ export interface IMessage {
   readonly text: string;
   readonly author: string;
   readonly score: number;
-  readonly timestamp: UnixTime;
+  readonly createdAt: UnixTime;
 }
 
 export interface IChannel {
   readonly id: Uuid;
   readonly name: string;
-  readonly messages: Immutable.List<Uuid>;
+  readonly messages: Immutable.OrderedMap<Uuid, IMessage>;
+  readonly allowedUsers: Immutable.Set<Uuid>;
 }
 
 export interface IUser {
+  readonly id: Uuid;
   readonly email: string;
   readonly name: string;
   readonly avatarUrl: string;
@@ -30,7 +32,8 @@ export interface IUser {
 
 export interface IState {
   channels: Immutable.Map<Uuid, IChannel>;
-  messages: Immutable.Map<Uuid, IMessage>;
-  user: IUser;
+  users: Immutable.Map<Uuid, IUser>;
+  currentUser: Uuid;
   activeChannel: Uuid;
+  appId: Uuid;
 }

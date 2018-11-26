@@ -2,17 +2,17 @@ import * as React from 'react';
 import { Uuid } from '../common/interfaces';
 
 export interface IChannelMessageInputStateProps {
-  channelId: Uuid;
+  readonly channelId: Uuid;
 }
 
 export interface IChannelMessageInputDispatchProps {
-  onMessageSend: (channelId: Uuid, text: string) => void;
+  readonly onMessageSend: (channelId: Uuid, text: string) => void;
 }
 
 type IChannelMessageInputProps = IChannelMessageInputStateProps & IChannelMessageInputDispatchProps;
 
 interface IChannelMessageInputLocalState {
-  text: string;
+  readonly text: string;
 }
 
 export class ChannelMessageInput extends React.PureComponent<IChannelMessageInputProps, IChannelMessageInputLocalState> {
@@ -27,8 +27,10 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
   onMessageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    this.props.onMessageSend(this.props.channelId, this.state.text);
-    this.setState(() => ({ text: '' }));
+    if (this.state.text !== '') {
+      this.props.onMessageSend(this.props.channelId, this.state.text);
+      this.setState(() => ({ text: '' }));
+    }
   };
 
   onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +53,7 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
               aria-label="Tell us what you think about"
               aria-describedby="send-button" />
             <div className="input-group-append">
-              <button className="btn btn-success" type="button" id="send-button">Send</button>
+              <button className="btn btn-success" type="submit" id="send-button">Send</button>
             </div>
           </div>
         </div>

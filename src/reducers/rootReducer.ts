@@ -1,12 +1,9 @@
-import { Action, IState } from '../common/interfaces';
-import { channels } from './channels';
-import { messages } from './messages';
-import { user } from './user';
-import { activeChannel } from './activeChannel';
+import { combineReducers } from 'redux';
 
-export const rootReducer = (prevState = {} as IState, action: Action): IState => ({
-  channels: channels(prevState.channels, action),
-  messages: messages(prevState.messages, action),
-  user: user(prevState.user, action),
-  activeChannel: activeChannel(prevState.activeChannel, action)
-});
+import { channels } from './channels';
+import { users } from './users';
+import { currentUser } from './currentUser';
+import { activeChannel } from './activeChannel';
+import { appId } from './appId';
+
+export const rootReducer = combineReducers({channels, users, currentUser, activeChannel, appId});
