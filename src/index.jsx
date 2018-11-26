@@ -17,7 +17,7 @@ import { rootReducer } from './reducers/rootReducer.ts';
 import { defaultState } from './defaultState.ts';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEllipsisV, faUser, faUserPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faUser, faUserPlus, faTrash, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 import { App } from './App.tsx';
 
@@ -26,7 +26,7 @@ const store = createStore(rootReducer, defaultState, composeEnhancers(
   applyMiddleware(thunk))
 );
 
-library.add(faEllipsisV, faUser, faUserPlus, faTrash);
+library.add(faEllipsisV, faUser, faUserPlus, faTrash, faArrowUp, faArrowDown);
 
 ReactDOM.render(
   <Provider store={store}>

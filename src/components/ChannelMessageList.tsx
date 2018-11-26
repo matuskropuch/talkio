@@ -12,7 +12,7 @@ export class ChannelMessageList extends React.PureComponent<IChannelMessageListP
   render(): JSX.Element {
     const messages = this.props.messages.toList()
                                         .sort((m1, m2) => m2.createdAt - m1.createdAt)
-                                        .map(message => <ChannelMessage text={message.text} key={message.id} />);
+                                        .map(message => <ChannelMessage id={message.id} text={message.text} score={message.score} key={message.id} />);
 
     return (
       <div className="flex-grow-1 d-flex flex-column-reverse" style={{ overflow: 'scroll' }}>

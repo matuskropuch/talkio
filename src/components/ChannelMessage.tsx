@@ -1,9 +1,13 @@
 import * as React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MessageVoteContainer } from '../containers/MessageVoteContainer';
+import { Uuid } from '../common/interfaces';
 
 interface ChannelMessageProps {
+  readonly id: Uuid;
   readonly text: string;
+  readonly score: number;
 }
 
 export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}> {
@@ -20,6 +24,7 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
           <a href="#">
             <FontAwesomeIcon icon="ellipsis-v" />
           </a>
+          <MessageVoteContainer id={this.props.id} score={this.props.score} />
         </div>
       </div>
     );
