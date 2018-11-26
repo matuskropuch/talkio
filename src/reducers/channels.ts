@@ -6,13 +6,13 @@ import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND } from '..
 export const channels = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
   switch (action.type) {
     case CHANNEL_CREATE: {
-      const { id, name } = action.payload;
+      const { id, name, creatorId } = action.payload;
 
       return prevState.set(action.payload.id, {
         id,
         name,
         messages: Immutable.Map<Uuid, IMessage>(),
-        allowedUsers: Immutable.List<Uuid>()
+        allowedUsers: Immutable.Set<Uuid>(creatorId)
       });
     }
 

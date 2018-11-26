@@ -19,8 +19,8 @@ export interface IMessage {
 export interface IChannel {
   readonly id: Uuid;
   readonly name: string;
-  readonly messages: Immutable.Map<Uuid, IMessage>;
-  readonly allowedUsers: Immutable.List<Uuid>;
+  readonly messages: Immutable.OrderedMap<Uuid, IMessage>;
+  readonly allowedUsers: Immutable.Set<Uuid>;
 }
 
 export interface IUser {
@@ -33,7 +33,7 @@ export interface IUser {
 export interface IState {
   channels: Immutable.Map<Uuid, IChannel>;
   users: Immutable.Map<Uuid, IUser>;
-  currentUser: IUser;
+  currentUser: Uuid;
   activeChannel: Uuid;
   appId: Uuid;
 }

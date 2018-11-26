@@ -35,14 +35,14 @@ const channel: IChannel = {
   id: uuid(),
   name: 'Channel 1',
   messages: channelMessages,
-  allowedUsers: Immutable.List<Uuid>([currentUser.id])
+  allowedUsers: Immutable.Set<Uuid>([currentUser.id])
 };
 
 const channel2: IChannel = {
   id: uuid(),
   name: 'Channel 2',
   messages: channelMessages,
-  allowedUsers: Immutable.List<Uuid>([currentUser.id])
+  allowedUsers: Immutable.Set<Uuid>([currentUser.id])
 };
 
 const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
@@ -53,7 +53,7 @@ const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
 export const defaultState: IState = {
   channels,
   users: Immutable.Map<Uuid, IUser>([ [currentUser.id, currentUser] ]),
-  currentUser,
+  currentUser: currentUser.id,
   activeChannel: channel.id,
   appId: uuid()
 };
