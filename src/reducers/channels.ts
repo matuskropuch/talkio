@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 
 import { Uuid, IChannel, Action, IMessage } from '../common/interfaces';
-import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE } from '../constants/actionTypes';
+import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE, MESSAGE_DELETE } from '../constants/actionTypes';
 
 export const channels = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
   const getChannel = (errorMessage: string): IChannel => {
@@ -57,6 +57,18 @@ export const channels = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Ma
       const newChannel: IChannel = {
         ...oldChannel,
         messages: oldChannel.messages.set(message.id, message)
+      };
+
+      return prevState.set(channelId, newChannel);
+    }
+
+    case MESSAGE_DELETE: {
+      const { channelId, messageId } = action.payload;
+      const oldChannel = getChannel('Deleting message from nonexistent channel');
+
+      const newChannel: IChannel =  {
+        ...oldChannel,
+        messages: oldChannel.messages.delete(messageId)
       };
 
       return prevState.set(channelId, newChannel);

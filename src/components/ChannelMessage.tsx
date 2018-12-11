@@ -8,6 +8,7 @@ interface ChannelMessageProps {
   readonly id: Uuid;
   readonly text: string;
   readonly score: number;
+  readonly onDelete: (messageId: Uuid) => void;
 }
 
 export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}> {
@@ -21,8 +22,8 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
           <div className="flex-grow-1 pr-3">
             {this.props.text}
           </div>
-          <a href="#">
-            <FontAwesomeIcon icon="ellipsis-v" />
+          <a href="#" className="text-danger" onClick={() => this.props.onDelete(this.props.id)}>
+            <FontAwesomeIcon icon="eraser" />
           </a>
           <MessageVoteContainer id={this.props.id} score={this.props.score} />
         </div>
