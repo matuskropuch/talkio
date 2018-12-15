@@ -9,7 +9,7 @@ export interface IChannelListDispatchProps {
 }
 
 export interface IChannelListStateProps {
-  readonly channels: Immutable.Map<Uuid, IChannel>;
+  readonly channels: Immutable.List<IChannel>;
   readonly activeChannel: Uuid;
 }
 
@@ -17,7 +17,7 @@ type IChannelListProps = IChannelListStateProps & IChannelListDispatchProps;
 
 export class ChannelList extends React.PureComponent<IChannelListProps, {}> {
   render(): JSX.Element {
-    const channels = this.props.channels.toList().map(channel => (
+    const channels = this.props.channels.map(channel => (
       <ChannelListItem
         name={channel.name}
         isActive={channel.id === this.props.activeChannel}
