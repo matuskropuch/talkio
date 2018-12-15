@@ -11,7 +11,7 @@ import { IState, Uuid, IMessage } from '../common/interfaces';
 import { deleteMessage } from '../actions/actionCreators';
 
 const mapStateToProps = (state: IState): IChannelMessageListStateProps => {
-  const activeChannel = state.channels.get(state.activeChannel);
+  const activeChannel = state.channels.all.get(state.activeChannel);
   let messages = Immutable.Map<Uuid, IMessage>();
 
   if (activeChannel !== undefined) {

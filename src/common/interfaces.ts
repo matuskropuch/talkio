@@ -30,8 +30,13 @@ export interface IUser {
   readonly avatarUrl: string;
 }
 
+export interface IChannels {
+  readonly byId: Immutable.List<Uuid>;
+  readonly all: Immutable.Map<Uuid, IChannel>;
+}
+
 export interface IState {
-  channels: Immutable.Map<Uuid, IChannel>;
+  channels: IChannels;
   users: Immutable.Map<Uuid, IUser>;
   currentUser: Uuid;
   activeChannel: Uuid;

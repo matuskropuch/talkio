@@ -6,7 +6,7 @@ import { IState, Uuid } from '../common/interfaces';
 import { selectChannel } from '../actions/actionCreators';
 
 const mapStateToProps = (state: IState): IChannelListStateProps => ({
-  channels: state.channels,
+  channels: state.channels.all,
   activeChannel: state.activeChannel
 });
 

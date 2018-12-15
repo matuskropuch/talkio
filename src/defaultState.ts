@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 import * as uuid from 'uuid';
 
-import { Uuid, IChannel, IMessage, IUser, IState } from './common/interfaces';
+import { Uuid, IChannel, IMessage, IUser, IState, IChannels } from './common/interfaces';
 
 const currentUser: IUser = {
   id: uuid(),
@@ -45,10 +45,17 @@ const channel2: IChannel = {
   allowedUsers: Immutable.Set<Uuid>([currentUser.id])
 };
 
-const channels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
+const allChannels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
   [channel.id, channel],
   [channel2.id, channel2]
 ]);
+
+const byIdChannels: Immutable.List<Uuid> = Immutable.List([channel.id, channel2.id]);
+
+const channels: IChannels = {
+  all: allChannels,
+  byId: byIdChannels
+};
 
 export const defaultState: IState = {
   channels,

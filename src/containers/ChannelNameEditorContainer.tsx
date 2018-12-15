@@ -6,7 +6,7 @@ import { IState, Uuid } from '../common/interfaces';
 import { renameChannel } from '../actions/actionCreators';
 
 const mapStateToProps = (state: IState): ChannelNameEditorStateProps => {
-  const activeChannel = state.channels.get(state.activeChannel);
+  const activeChannel = state.channels.all.get(state.activeChannel);
 
   return {
     channelId: state.activeChannel,
