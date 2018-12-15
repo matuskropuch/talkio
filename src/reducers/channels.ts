@@ -121,6 +121,14 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
 
 const byId = (prevState: Immutable.List<Uuid> = Immutable.List<Uuid>(), action: Action): Immutable.List<Uuid> => {
   switch (action.type) {
+    case CHANNEL_CREATE: {
+      return prevState.push(action.payload.id);
+    }
+
+    case CHANNEL_DELETE: {
+      return prevState.filter((id: Uuid) => id !== action.payload.id);
+    }
+
     default: {
       return prevState;
     }
