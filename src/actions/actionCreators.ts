@@ -1,28 +1,28 @@
 import * as uuid from 'uuid';
 
 import { Action, Uuid, IMessage } from '../common/interfaces';
-import { CHANNEL_CREATE, CHANNEL_SELECT, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE, MESSAGE_DELETE } from '../constants/actionTypes';
+import { CHANNEL_CREATE, CHANNEL_SELECT, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE, MESSAGE_DELETE, CHANNEL_ORDER_UP, CHANNEL_ORDER_DOWN } from '../constants/actionTypes';
 
 export const createChannel = (name: string, creatorId: Uuid): Action => ({
   type: CHANNEL_CREATE,
   payload: {
-    id: uuid(),
+    channelId: uuid(),
     name,
     creatorId
   }
 });
 
-export const selectChannel = (id: Uuid): Action => ({
+export const selectChannel = (channelId: Uuid): Action => ({
   type: CHANNEL_SELECT,
   payload: {
-    id
+    channelId
   }
 });
 
-export const deleteChannel = (id: Uuid): Action => ({
+export const deleteChannel = (channelId: Uuid): Action => ({
   type: CHANNEL_DELETE,
   payload: {
-    id
+    channelId
   }
 });
 
@@ -31,6 +31,20 @@ export const renameChannel = (channelId: Uuid, newName: string): Action => ({
   payload: {
     channelId,
     newName
+  }
+});
+
+export const channelOrderUp = (channelId: Uuid): Action => ({
+  type: CHANNEL_ORDER_UP,
+  payload: {
+    channelId
+  }
+});
+
+export const channelOrderDown = (channelId: Uuid): Action => ({
+  type: CHANNEL_ORDER_DOWN,
+  payload: {
+    channelId
   }
 });
 

@@ -2,7 +2,7 @@ import * as Immutable from 'immutable';
 import { combineReducers } from 'redux';
 
 import { Uuid, IChannel, Action, IMessage, IChannels } from '../common/interfaces';
-import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE, MESSAGE_DELETE } from '../constants/actionTypes';
+import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE, MESSAGE_DELETE, CHANNEL_ORDER_UP, CHANNEL_ORDER_DOWN } from '../constants/actionTypes';
 
 const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
   const getChannel = (errorMessage: string): IChannel => {
@@ -25,10 +25,10 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
 
   switch (action.type) {
     case CHANNEL_CREATE: {
-      const { id, name, creatorId } = action.payload;
+      const { channelId, name, creatorId } = action.payload;
 
       return prevState.set(action.payload.id, {
-        id,
+        id: channelId,
         name,
         messages: Immutable.Map<Uuid, IMessage>(),
         allowedUsers: Immutable.Set<Uuid>(creatorId)
@@ -36,7 +36,7 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
     }
 
     case CHANNEL_DELETE: {
-      return prevState.delete(action.payload.id);
+      return prevState.delete(action.payload.channelId);
     }
 
     case CHANNEL_RENAME: {
@@ -127,6 +127,31 @@ const byId = (prevState: Immutable.List<Uuid> = Immutable.List<Uuid>(), action: 
 
     case CHANNEL_DELETE: {
       return prevState.filter((id: Uuid) => id !== action.payload.id);
+    }
+
+    case CHANNEL_ORDER_UP: {
+      const { channelId } = action.payload;
+      const channelIdIndex = prevState.indexOf(channelId);
+      if (channelIdIndex === 0) {
+        return prevState;
+      }
+
+      const temp = prevState.get(channelIdIndex - 1);
+      if (temp === undefined) {
+        return prevState;
+      }
+      return prevState.set(channelIdIndex - 1, channelId).set(channelIdIndex, temp);
+    }
+
+    case CHANNEL_ORDER_DOWN: {
+      const { channelId } = action.payload;
+      const channelIdIndex = prevState.indexOf(channelId);
+      const temp = prevState.get(channelIdIndex + 1);
+
+      if (temp === undefined) {
+        return prevState;
+      }
+      return prevState.set(channelIdIndex + 1, channelId).set(channelIdIndex, temp);
     }
 
     default: {

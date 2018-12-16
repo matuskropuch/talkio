@@ -6,8 +6,10 @@ import { Uuid } from '../common/interfaces';
 interface IChannelListItemProps {
   readonly name: string;
   readonly isActive: boolean;
-  readonly onChannelSelect: (id: string) => void;
   readonly id: Uuid;
+  readonly onChannelSelect: (id: string) => void;
+  readonly onOrderUp: (id: string) => void;
+  readonly onOrderDown: (id: string) => void;
 }
 
 export class ChannelListItem extends React.PureComponent<IChannelListItemProps, {}> {
@@ -22,10 +24,10 @@ export class ChannelListItem extends React.PureComponent<IChannelListItemProps, 
           <div className="flex-grow-1">
             {this.props.name}
           </div>
-          <div className="px-2" onClick={() => console.log('ahaha')}>
+          <div className="px-2" onClick={() => this.props.onOrderUp(this.props.id)}>
             <FontAwesomeIcon icon="arrow-up" />
           </div>
-          <div onClick={() => console.log('ahaha')}>
+          <div onClick={() => this.props.onOrderDown(this.props.id)}>
             <FontAwesomeIcon icon="arrow-down" />
           </div>
         </div>

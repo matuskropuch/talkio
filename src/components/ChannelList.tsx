@@ -6,6 +6,8 @@ import { ChannelListItem } from './ChannelListItem';
 
 export interface IChannelListDispatchProps {
   readonly onChannelSelect: (id: Uuid) => void;
+  readonly onOrderUp: (id: Uuid) => void;
+  readonly onOrderDown: (id: Uuid) => void;
 }
 
 export interface IChannelListStateProps {
@@ -23,7 +25,9 @@ export class ChannelList extends React.PureComponent<IChannelListProps, {}> {
         isActive={channel.id === this.props.activeChannel}
         key={channel.id}
         id={channel.id}
-        onChannelSelect={this.props.onChannelSelect} />
+        onChannelSelect={this.props.onChannelSelect}
+        onOrderUp={this.props.onOrderUp}
+        onOrderDown={this.props.onOrderDown} />
     ));
 
     return (
