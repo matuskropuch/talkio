@@ -12,40 +12,30 @@ const mapResponseToMessage = (message: any): IMessage => ({
   score: message.customData.score
 });
 
-const mapMessageToJson = (message: IMessage): object => ({
-  id: message.id,
-  value: message.text,
-  createdAt: message.createdAt,
-  createdBy: message.author,
-  updatedAt: '',
-  updatedBy: '',
+const mapMessageToJson = (text: string, score: number): object => ({
+  value: text,
   customData: {
-    score: message.score
+    score
   }
 });
 
 export const getMessagesForChannel = async (channelId: Uuid): Promise<Immutable.OrderedMap<Uuid, IMessage>> => {
   const { data } = await axios.get(`${baseUrl}/channel/${channelId}/message`);
 
-  return Immutable.OrderedMap<Uuid, IMessage>(
+  return Immutable.OrderedMap(
     data.map((message: any) => [message.id, mapResponseToMessage(message)])
   );
 };
 
-export const postMessage = async (channelId: Uuid, message: IMessage): Promise<IMessage> => {
-  const messageData = mapMessageToJson(message);
+export const postMessage = async (channelId: Uuid, text: string, score: number): Promise<IMessage> => {
+  const messageData = mapMessageToJson(text, score);
 
   const { data } = await axios.post(`${baseUrl}/channel/${channelId}/message`, messageData);
   return mapResponseToMessage(data);
 };
 
 export const updateMessage = async (channelId: Uuid, message: IMessage): Promise<IMessage> => {
-  const messageData = {
-    value: message.text,
-    customData: {
-      score: message.score
-    }
-  };
+  const messageData = mapMessageToJson(message.text, message.score);
 
   const { data } = await axios.put(`${baseUrl}/channel/${channelId}/message/${message.id}`, messageData);
   return mapResponseToMessage(data);

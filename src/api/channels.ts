@@ -12,10 +12,10 @@ const mapResponseToChannel = (channel: any): IChannel => ({
   messages: Immutable.OrderedMap<Uuid, IMessage>()
 });
 
-const mapChannelToJson = (channel: IChannel): object => ({
-  name: channel.name,
+const mapChannelToJson = (name: string, allowedUsers: Immutable.Set<Uuid>): object => ({
+  name,
   customData: {
-    allowedUsers: channel.allowedUsers.toJSON()
+    allowedUsers: allowedUsers.toJSON()
   }
 });
 
@@ -32,8 +32,8 @@ export const getChannels = async (): Promise<IChannels> => {
   return { all, byId };
 };
 
-export const postChannel = async (channel: IChannel): Promise<IChannel> => {
-  const channelData = mapChannelToJson(channel);
+export const postChannel = async (name: string, allowedUsers: Immutable.Set<Uuid>): Promise<IChannel> => {
+  const channelData = mapChannelToJson(name, allowedUsers);
 
   const { data } = await axios.post(`${baseUrl}/channel`, channelData);
   return mapResponseToChannel(data);
@@ -44,7 +44,7 @@ export const deleteChannel = async (channelId: Uuid): Promise<void> => {
 };
 
 export const updateChannel = async (channel: IChannel): Promise<IChannel> => {
-  const channelData = mapChannelToJson(channel);
+  const channelData = mapChannelToJson(channel.name, channel.allowedUsers);
 
   const response = await axios.put(`${baseUrl}/channel/${channel.id}`, channelData);
   const updatedChannel: IChannel = mapResponseToChannel(response.data);
