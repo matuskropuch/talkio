@@ -1,12 +1,31 @@
 import * as React from 'react';
-import { Chat } from './components/Chat';
 
-export class App extends React.PureComponent {
+import { Chat } from './components/Chat';
+import { Login } from './components/Login';
+
+interface IAppState {
+  readonly userIsLoggedIn: boolean;
+}
+
+export class App extends React.PureComponent<{}, IAppState> {
+  constructor(props: never) {
+    super(props);
+
+    this.state = {
+      userIsLoggedIn: false
+    };
+  }
+
+  onUserLogin = () => {
+    this.setState(() => ({
+      userIsLoggedIn: true
+    }));
+  }
+
   render(): JSX.Element {
-    return (
-      <>
-        <Chat />
-      </>
-    );
+    if (this.state.userIsLoggedIn) {
+      return <Chat />;
+    }
+    return <Login onUserLogin={this.onUserLogin} />;
   }
 }
