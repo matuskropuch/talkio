@@ -8,3 +8,4 @@ export const MESSAGE_SEND = 'MESSAGE_SEND';
 export const MESSAGE_DELETE = 'MESSAGE_DELETE';
 export const MESSAGE_UPVOTE = 'MESSAGE_UPVOTE';
 export const MESSAGE_DOWNVOTE = 'MESSAGE_DOWNVOTE';
+export const USER_LOGIN = 'USER_LOGIN';

@@ -60,7 +60,7 @@ const channels: IChannels = {
 export const defaultState: IState = {
   channels,
   users: Immutable.Map<Uuid, IUser>([ [currentUser.id, currentUser] ]),
-  currentUser: currentUser.id,
+  currentUser: '',
   activeChannel: channel.id,
   appId: uuid()
 };

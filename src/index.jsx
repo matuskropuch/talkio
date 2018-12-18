@@ -19,7 +19,7 @@ import { defaultState } from './defaultState.ts';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser } from '@fortawesome/free-solid-svg-icons';
 
-import { App } from './App.tsx';
+import { AppContainer } from './containers/AppContainer.tsx';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, defaultState, composeEnhancers(
@@ -30,7 +30,7 @@ library.add(faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   document.getElementById('app-root')
 );
