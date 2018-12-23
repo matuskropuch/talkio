@@ -10,7 +10,7 @@ const mapStateToProps = (state: IState): IAppStateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IAppDispatchProps => ({
-  onUserLogin: () => dispatch(userLogin())
+  onUserLogin: (email: string) => dispatch(userLogin(email))
 });
 
 export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

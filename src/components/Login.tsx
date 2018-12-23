@@ -1,12 +1,32 @@
 import * as React from 'react';
 
 interface ILoginProps {
-  readonly onUserLogin: () => void;
+  readonly onUserLogin: (email: string) => void;
 }
 
-export class Login extends React.PureComponent<ILoginProps, {}> {
+interface ILoginState {
+  readonly email: string;
+}
+
+export class Login extends React.PureComponent<ILoginProps, ILoginState> {
+  constructor(props: ILoginProps) {
+    super(props);
+
+    this.state = {
+      email: ''
+    };
+  }
+
   onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+  }
+
+  onEmailEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    this.setState(() => ({
+      email: value
+    }));
   }
 
   render() {
@@ -17,9 +37,17 @@ export class Login extends React.PureComponent<ILoginProps, {}> {
           <form onSubmit={this.onFormSubmit} action="#" method="post">
             <div className="form-group">
               <label htmlFor="emailInput">Email</label>
-              <input className="form-control" type="email" name="emailInput" id="emailInput"/>
+              <input
+                onChange={this.onEmailEdit}
+                value={this.state.email}
+                className="form-control"
+                type="email"
+                name="emailInput"
+                id="emailInput"/>
             </div>
-            <button className="btn btn-primary" onClick={() => this.props.onUserLogin()} type="submit">Log In</button>
+            <button className="btn btn-primary" onClick={() => this.props.onUserLogin(this.state.email)} type="submit">
+              Log In
+            </button>
           </form>
         </div>
       </div>

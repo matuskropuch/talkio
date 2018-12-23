@@ -98,9 +98,9 @@ export const downvoteMessage = (channelId: Uuid, messageId: Uuid): Action => ({
   }
 });
 
-export const userLogin = (): Action => ({
+export const userLogin = (id: Uuid): Action => ({
   type: USER_LOGIN,
   payload: {
-    id: 'heyhothisisusermaaan'
+    id
   }
 });

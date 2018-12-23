@@ -8,7 +8,7 @@ export interface IAppStateProps {
 }
 
 export interface IAppDispatchProps {
-  readonly onUserLogin: () => void;
+  readonly onUserLogin: (email: string) => void;
 }
 
 type IAppProps = IAppStateProps & IAppDispatchProps;
