@@ -24,7 +24,6 @@ export interface IChannel {
 }
 
 export interface IUser {
-  readonly id: Uuid;
   readonly email: string;
   readonly name: string;
   readonly avatarUrl: string;

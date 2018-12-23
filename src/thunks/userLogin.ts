@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
+import axios from 'axios';
 
 import { userLogin } from '../actions/actionCreators';
 import { registerUser } from '../api/users';
 import { auth } from '../api/auth';
-import axios from 'axios';
 
 export const userLoginThunk = (email: string): any =>
   async (dispatch: Dispatch) => {
@@ -12,5 +12,5 @@ export const userLoginThunk = (email: string): any =>
 
     axios.defaults.headers.Authorization = `bearer ${token}`;
 
-    dispatch(userLogin(user.id));
+    dispatch(userLogin(user.email));
   };

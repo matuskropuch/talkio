@@ -4,7 +4,6 @@ import * as uuid from 'uuid';
 import { Uuid, IChannel, IMessage, IUser, IState, IChannels } from './common/interfaces';
 
 const currentUser: IUser = {
-  id: uuid(),
   email: 'jacob@boss.net',
   name: 'Jacob',
   avatarUrl: ''
@@ -35,14 +34,14 @@ const channel: IChannel = {
   id: uuid(),
   name: 'Channel 1',
   messages: channelMessages,
-  allowedUsers: Immutable.Set<Uuid>([currentUser.id])
+  allowedUsers: Immutable.Set<string>([currentUser.email])
 };
 
 const channel2: IChannel = {
   id: uuid(),
   name: 'Channel 2',
   messages: channelMessages,
-  allowedUsers: Immutable.Set<Uuid>([currentUser.id])
+  allowedUsers: Immutable.Set<string>([currentUser.email])
 };
 
 const allChannels: Immutable.Map<Uuid, IChannel> = Immutable.Map([
@@ -59,7 +58,7 @@ const channels: IChannels = {
 
 export const defaultState: IState = {
   channels,
-  users: Immutable.Map<Uuid, IUser>([ [currentUser.id, currentUser] ]),
+  users: Immutable.Map<string, IUser>([ [currentUser.email, currentUser] ]),
   currentUser: '',
   activeChannel: channel.id,
   appId: uuid()
