@@ -50,15 +50,9 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
     }
 
     case CHANNEL_RENAME: {
-      const {channelId, newName} = action.payload;
-      const oldChannel = getChannel('Renaming nonexistent channel');
+      const { channel } = action.payload;
 
-      const newChannel: IChannel = {
-        ...oldChannel,
-        name: newName
-      };
-
-      return prevState.set(channelId, newChannel);
+      return prevState.set(channel.id, channel);
     }
 
     case MESSAGE_SEND: {

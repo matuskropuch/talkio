@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 
 import { ChannelNameEditor, ChannelNameEditorStateProps, ChannelNameEditorDispatchProps } from '../components/ChannelNameEditor';
 import { IState, Uuid } from '../common/interfaces';
-import { renameChannel } from '../actions/actionCreators';
+import { renameChannelThunk } from '../thunks/renameChannel';
 
 const mapStateToProps = (state: IState): ChannelNameEditorStateProps => {
   const activeChannel = state.channels.all.get(state.activeChannel);
@@ -15,7 +15,7 @@ const mapStateToProps = (state: IState): ChannelNameEditorStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ChannelNameEditorDispatchProps => ({
-  onChannelRename: (id: Uuid, name: string) => dispatch(renameChannel(id, name))
+  onChannelRename: (id: Uuid, name: string) => dispatch(renameChannelThunk(id, name))
 });
 
 export const ChannelNameEditorContainer = connect(mapStateToProps, mapDispatchToProps)(ChannelNameEditor);

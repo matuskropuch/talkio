@@ -36,11 +36,10 @@ export const deleteChannel = (channelId: Uuid): Action => ({
   }
 });
 
-export const renameChannel = (channelId: Uuid, newName: string): Action => ({
+export const renameChannel = (channel: IChannel): Action => ({
   type: CHANNEL_RENAME,
   payload: {
-    channelId,
-    newName
+    channel
   }
 });
 
