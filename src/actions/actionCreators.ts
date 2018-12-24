@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
 
-import { Action, Uuid, IMessage } from '../common/interfaces';
+import { Action, Uuid, IMessage, IChannel } from '../common/interfaces';
 import {
   CHANNEL_CREATE,
   CHANNEL_SELECT,
@@ -15,12 +15,10 @@ import {
   USER_LOGIN
 } from '../constants/actionTypes';
 
-export const createChannel = (name: string, creatorId: Uuid): Action => ({
+export const createChannel = (channel: IChannel): Action => ({
   type: CHANNEL_CREATE,
   payload: {
-    channelId: uuid(),
-    name,
-    creatorId
+    channel
   }
 });
 

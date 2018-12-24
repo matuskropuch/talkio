@@ -25,14 +25,9 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
 
   switch (action.type) {
     case CHANNEL_CREATE: {
-      const { channelId, name, creatorId } = action.payload;
+      const { channel } = action.payload;
 
-      return prevState.set(action.payload.id, {
-        id: channelId,
-        name,
-        messages: Immutable.Map<Uuid, IMessage>(),
-        allowedUsers: Immutable.Set<Uuid>(creatorId)
-      });
+      return prevState.set(channel.id, channel);
     }
 
     case CHANNEL_DELETE: {
@@ -122,7 +117,7 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
 const byId = (prevState: Immutable.List<Uuid> = Immutable.List<Uuid>(), action: Action): Immutable.List<Uuid> => {
   switch (action.type) {
     case CHANNEL_CREATE: {
-      return prevState.push(action.payload.id);
+      return prevState.push(action.payload.channel.id);
     }
 
     case CHANNEL_DELETE: {
