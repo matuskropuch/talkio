@@ -8,6 +8,7 @@ export interface IChannelListDispatchProps {
   readonly onChannelSelect: (id: Uuid) => void;
   readonly onOrderUp: (id: Uuid) => void;
   readonly onOrderDown: (id: Uuid) => void;
+  readonly loadChannels: () => void;
 }
 
 export interface IChannelListStateProps {
@@ -18,6 +19,10 @@ export interface IChannelListStateProps {
 type IChannelListProps = IChannelListStateProps & IChannelListDispatchProps;
 
 export class ChannelList extends React.PureComponent<IChannelListProps, {}> {
+  componentDidMount() {
+    this.props.loadChannels();
+  }
+
   render(): JSX.Element {
     const channels = this.props.channels.map(channel => (
       <ChannelListItem

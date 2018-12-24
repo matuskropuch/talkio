@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 
 import { baseUrl } from './config';
 
-import { IChannel, Uuid, IMessage, IChannels } from '../common/interfaces';
+import { IChannel, Uuid, IMessage } from '../common/interfaces';
 
 const mapResponseToChannel = (channel: any): IChannel => ({
   id: channel.id,
@@ -19,17 +19,11 @@ const mapChannelToJson = (name: string, allowedUsers: Immutable.Set<Uuid>): obje
   }
 });
 
-export const getChannels = async (): Promise<IChannels> => {
+export const getChannels = async (): Promise<Immutable.Map<Uuid, IChannel>> => {
   const response = await axios.get(`${baseUrl}/channel`);
-  const all = Immutable.Map<Uuid, IChannel>(
-    response.data.json().map((channel: any): [Uuid, IChannel] => [channel.id, mapResponseToChannel(channel)])
+  return Immutable.Map(
+    response.data.map((channel: any): [Uuid, IChannel] => [channel.id, mapResponseToChannel(channel)])
   );
-
-  const byId = Immutable.List<Uuid>(
-    response.data.json().map((channel: any): Uuid => channel.id)
-  );
-
-  return { all, byId };
 };
 
 export const postChannel = async (name: string, allowedUsers: Immutable.Set<Uuid>): Promise<IChannel> => {

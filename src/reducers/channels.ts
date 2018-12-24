@@ -2,7 +2,18 @@ import * as Immutable from 'immutable';
 import { combineReducers } from 'redux';
 
 import { Uuid, IChannel, Action, IMessage, IChannels } from '../common/interfaces';
-import { CHANNEL_CREATE, CHANNEL_DELETE, CHANNEL_RENAME, MESSAGE_SEND, MESSAGE_UPVOTE, MESSAGE_DOWNVOTE, MESSAGE_DELETE, CHANNEL_ORDER_UP, CHANNEL_ORDER_DOWN } from '../constants/actionTypes';
+import {
+  CHANNEL_CREATE,
+  CHANNEL_DELETE,
+  CHANNEL_RENAME,
+  MESSAGE_SEND,
+  MESSAGE_UPVOTE,
+  MESSAGE_DOWNVOTE,
+  MESSAGE_DELETE,
+  CHANNEL_ORDER_UP,
+  CHANNEL_ORDER_DOWN,
+  CHANNELS_LOAD
+} from '../constants/actionTypes';
 
 const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
   const getChannel = (errorMessage: string): IChannel => {
@@ -24,6 +35,10 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
   };
 
   switch (action.type) {
+    case CHANNELS_LOAD: {
+      return action.payload.channels;
+    }
+
     case CHANNEL_CREATE: {
       const { channel } = action.payload;
 
