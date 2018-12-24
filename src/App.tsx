@@ -9,6 +9,7 @@ export interface IAppStateProps {
 
 export interface IAppDispatchProps {
   readonly onUserLogin: (email: string) => void;
+  readonly onUserRegister: (email: string, name: string) => void;
 }
 
 type IAppProps = IAppStateProps & IAppDispatchProps;
@@ -18,6 +19,6 @@ export class App extends React.PureComponent<IAppProps, {}> {
     if (this.props.userIsLoggedIn) {
       return <Chat />;
     }
-    return <Login onUserLogin={this.props.onUserLogin} />;
+    return <Login onUserLogin={this.props.onUserLogin} onUserRegister={this.props.onUserRegister}/>;
   }
 }
