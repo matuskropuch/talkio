@@ -22,7 +22,7 @@ export const getUsers = async (): Promise<Immutable.Map<string, IUser>> => {
   const { data } = await axios.get(`${userBaseUrl}/user`);
 
   return Immutable.Map(
-    data.map((user: any) => [user.email, mapResponseToUser(data)])
+    data.map((user: any) => [user.email, mapResponseToUser(user)])
   );
 };
 

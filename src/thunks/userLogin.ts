@@ -1,18 +1,30 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
+import * as Immutable from 'immutable';
 
 import { userLogin } from '../actions/actionCreators';
-import { registerUser } from '../api/users';
+import { registerUser, getUsers } from '../api/users';
 import { auth } from '../api/auth';
+import { Uuid, IUser, Action } from '../common/interfaces';
+import { USERS_LOAD } from '../constants/actionTypes';
+
+const loadUsers = (users: Immutable.Map<Uuid, IUser>): Action => ({
+  type: USERS_LOAD,
+  payload: {
+    users
+  }
+});
 
 export const userRegisterThunk = (email: string, name: string): any =>
   async (dispatch: Dispatch) => {
     const user = await registerUser(email, name, 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png');
     const token = await auth(user.email);
-
     axios.defaults.headers.Authorization = `bearer ${token}`;
 
     dispatch(userLogin(user.email));
+
+    const users = await getUsers();
+    dispatch(loadUsers(users));
   };
 
 export const userLoginThunk = (email: string): any =>
@@ -21,4 +33,7 @@ export const userLoginThunk = (email: string): any =>
     axios.defaults.headers.Authorization = `bearer ${token}`;
 
     dispatch(userLogin(email));
+
+    const users = await getUsers();
+    dispatch(loadUsers(users));
   };

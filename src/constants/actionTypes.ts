@@ -11,4 +11,5 @@ export const MESSAGE_DELETE = 'MESSAGE_DELETE';
 export const MESSAGE_UPVOTE = 'MESSAGE_UPVOTE';
 export const MESSAGE_DOWNVOTE = 'MESSAGE_DOWNVOTE';
 
+export const USERS_LOAD = 'USERS_LOAD';
 export const USER_LOGIN = 'USER_LOGIN';
