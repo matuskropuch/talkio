@@ -27,6 +27,7 @@ export interface IUser {
   readonly email: string;
   readonly name: string;
   readonly avatarUrl: string;
+  readonly channelOrder: Immutable.List<Uuid>;
 }
 
 export interface IChannels {

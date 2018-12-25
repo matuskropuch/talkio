@@ -2,19 +2,21 @@ import axios from 'axios';
 import * as Immutable from 'immutable';
 
 import { userBaseUrl } from './config';
-import { IUser } from '../common/interfaces';
+import { IUser, Uuid } from '../common/interfaces';
 
 const mapResponseToUser = (user: any): IUser => ({
   email: user.email,
   name: user.customData.name,
-  avatarUrl: user.customData.avatarUrl
+  avatarUrl: user.customData.avatarUrl,
+  channelOrder: user.customData.channelOrder
 });
 
-const mapUserToJson = (email: string, name: string, avatarUrl: string): object => ({
+const mapUserToJson = (email: string, name: string, avatarUrl: string, channelOrder: Immutable.List<Uuid>): object => ({
   email,
   customData: {
     name,
-    avatarUrl
+    avatarUrl,
+    channelOrder: channelOrder.toJSON()
   }
 });
 
@@ -26,8 +28,8 @@ export const getUsers = async (): Promise<Immutable.Map<string, IUser>> => {
   );
 };
 
-export const registerUser = async (email: string, name: string, avatarUrl: string): Promise<IUser> => {
-  const userData = mapUserToJson(email, name, avatarUrl);
+export const registerUser = async (email: string, name: string, avatarUrl: string, channelOrder: Immutable.List<Uuid>): Promise<IUser> => {
+  const userData = mapUserToJson(email, name, avatarUrl, channelOrder);
 
   const { data } = await axios.post(`${userBaseUrl}/user`, userData);
   return mapResponseToUser(data);
@@ -37,7 +39,8 @@ export const updateUser = async (user: IUser): Promise<IUser> => {
   const userData = {
     customData: {
       name: user.name,
-      avatarUrl: user.avatarUrl
+      avatarUrl: user.avatarUrl,
+      channelOrder: user.channelOrder.toJSON()
     }
   };
 

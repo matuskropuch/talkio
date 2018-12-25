@@ -6,7 +6,8 @@ import { Uuid, IChannel, IMessage, IUser, IState, IChannels } from './common/int
 const currentUser: IUser = {
   email: 'jacob@boss.net',
   name: 'Jacob',
-  avatarUrl: ''
+  avatarUrl: '',
+  channelOrder: Immutable.List()
 };
 
 const message: IMessage = {

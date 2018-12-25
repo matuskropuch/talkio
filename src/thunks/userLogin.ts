@@ -17,7 +17,13 @@ const loadUsers = (users: Immutable.Map<Uuid, IUser>): Action => ({
 
 export const userRegisterThunk = (email: string, name: string): any =>
   async (dispatch: Dispatch) => {
-    const user = await registerUser(email, name, 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png');
+    const user = await registerUser(
+      email,
+      name,
+      'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png',
+      Immutable.List<Uuid>()
+    );
+
     const token = await auth(user.email);
     axios.defaults.headers.Authorization = `bearer ${token}`;
 
