@@ -8,7 +8,7 @@ import { postChannel } from '../api/channels';
 export const createChannelThunk = (name: string): any =>
   async (dispatch: Dispatch, getState: () => IState) => {
     const creatorId = getState().currentUser;
-    const channel = await postChannel(name, Immutable.Set(creatorId));
+    const channel = await postChannel(name, Immutable.Set([creatorId]));
 
     dispatch(createChannel(channel));
   };

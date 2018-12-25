@@ -8,11 +8,11 @@ import { IChannel, Uuid, IMessage } from '../common/interfaces';
 const mapResponseToChannel = (channel: any): IChannel => ({
   id: channel.id,
   name: channel.name,
-  allowedUsers: Immutable.Set<Uuid>(channel.customData.allowedUsers),
+  allowedUsers: Immutable.Set<string>(channel.customData.allowedUsers),
   messages: Immutable.OrderedMap<Uuid, IMessage>()
 });
 
-const mapChannelToJson = (name: string, allowedUsers: Immutable.Set<Uuid>): object => ({
+const mapChannelToJson = (name: string, allowedUsers: Immutable.Set<string>): object => ({
   name,
   customData: {
     allowedUsers: allowedUsers.toJSON()
@@ -26,7 +26,7 @@ export const getChannels = async (): Promise<Immutable.Map<Uuid, IChannel>> => {
   );
 };
 
-export const postChannel = async (name: string, allowedUsers: Immutable.Set<Uuid>): Promise<IChannel> => {
+export const postChannel = async (name: string, allowedUsers: Immutable.Set<string>): Promise<IChannel> => {
   const channelData = mapChannelToJson(name, allowedUsers);
 
   const { data } = await axios.post(`${baseUrl}/channel`, channelData);
