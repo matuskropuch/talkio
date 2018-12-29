@@ -8,7 +8,7 @@ const mapResponseToUser = (user: any): IUser => ({
   email: user.email,
   name: user.customData.name,
   avatarUrl: user.customData.avatarUrl,
-  channelOrder: user.customData.channelOrder
+  channelOrder: Immutable.List<Uuid>(user.customData.channelOrder)
 });
 
 const mapUserToJson = (email: string, name: string, avatarUrl: string, channelOrder: Immutable.List<Uuid>): object => ({
