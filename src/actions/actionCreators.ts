@@ -1,4 +1,5 @@
 import * as uuid from 'uuid';
+import * as Immutable from 'immutable';
 
 import { Action, Uuid, IMessage, IChannel } from '../common/interfaces';
 import {
@@ -12,7 +13,8 @@ import {
   MESSAGE_DELETE,
   CHANNEL_ORDER_UP,
   CHANNEL_ORDER_DOWN,
-  USER_LOGIN
+  USER_LOGIN,
+  CHANNEL_ORDER_CHANGE
 } from '../constants/actionTypes';
 
 export const createChannel = (channel: IChannel): Action => ({
@@ -54,6 +56,13 @@ export const channelOrderDown = (channelId: Uuid): Action => ({
   type: CHANNEL_ORDER_DOWN,
   payload: {
     channelId
+  }
+});
+
+export const channelOrderChange = (channelOrder: Immutable.List<Uuid>): Action => ({
+  type: CHANNEL_ORDER_CHANGE,
+  payload: {
+    channelOrder
   }
 });
 

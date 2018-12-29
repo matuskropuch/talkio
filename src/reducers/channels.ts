@@ -10,9 +10,8 @@ import {
   MESSAGE_UPVOTE,
   MESSAGE_DOWNVOTE,
   MESSAGE_DELETE,
-  CHANNEL_ORDER_UP,
-  CHANNEL_ORDER_DOWN,
-  CHANNELS_LOAD
+  CHANNELS_LOAD,
+  CHANNEL_ORDER_CHANGE
 } from '../constants/actionTypes';
 
 const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
@@ -137,29 +136,8 @@ const byId = (prevState: Immutable.List<Uuid> = Immutable.List<Uuid>(), action: 
       return prevState.filter((id: Uuid) => id !== action.payload.channelId);
     }
 
-    case CHANNEL_ORDER_UP: {
-      const { channelId } = action.payload;
-      const channelIdIndex = prevState.indexOf(channelId);
-      if (channelIdIndex === 0) {
-        return prevState;
-      }
-
-      const temp = prevState.get(channelIdIndex - 1);
-      if (temp === undefined) {
-        return prevState;
-      }
-      return prevState.set(channelIdIndex - 1, channelId).set(channelIdIndex, temp);
-    }
-
-    case CHANNEL_ORDER_DOWN: {
-      const { channelId } = action.payload;
-      const channelIdIndex = prevState.indexOf(channelId);
-      const temp = prevState.get(channelIdIndex + 1);
-
-      if (temp === undefined) {
-        return prevState;
-      }
-      return prevState.set(channelIdIndex + 1, channelId).set(channelIdIndex, temp);
+    case CHANNEL_ORDER_CHANGE: {
+      return action.payload.channelOrder;
     }
 
     default: {

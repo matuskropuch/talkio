@@ -21,6 +21,7 @@ export const loadChannelsThunk = (): any =>
     const { users, currentUser } = getState();
     const allowedChannels = channels.filter(channel => channel.allowedUsers.contains(currentUser));
     let channelOrder = users.get(currentUser)!.channelOrder;
+    channelOrder = channelOrder.filter(id => channels.has(id));
 
     if (allowedChannels.size > channelOrder.size) {
       channelOrder = channelOrder.push(
