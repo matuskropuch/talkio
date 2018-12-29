@@ -5,6 +5,7 @@ import { getChannels } from '../api/channels';
 import { Uuid, IChannel, Action, IState } from '../common/interfaces';
 import { CHANNELS_LOAD } from '../constants/actionTypes';
 import { updateUser } from '../api/users';
+import { selectChannel } from '../actions/actionCreators';
 
 const loadChannels = (channels: Immutable.Map<Uuid, IChannel>, channelOrder: Immutable.List<Uuid>): Action => ({
   type: CHANNELS_LOAD,
@@ -35,4 +36,7 @@ export const loadChannelsThunk = (): any =>
     }
 
     dispatch(loadChannels(channels, channelOrder));
+    if (channelOrder.size >= 0) {
+      dispatch(selectChannel(allowedChannels.get(channelOrder.first())!.id));
+    }
   };
