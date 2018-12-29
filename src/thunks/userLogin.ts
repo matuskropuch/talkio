@@ -7,6 +7,7 @@ import { registerUser, getUsers } from '../api/users';
 import { auth } from '../api/auth';
 import { Uuid, IUser, Action } from '../common/interfaces';
 import { USERS_LOAD } from '../constants/actionTypes';
+import { loadChannelsThunk } from './loadChannels';
 
 const loadUsers = (users: Immutable.Map<Uuid, IUser>): Action => ({
   type: USERS_LOAD,
@@ -31,6 +32,7 @@ export const userRegisterThunk = (email: string, name: string): any =>
 
     const users = await getUsers();
     dispatch(loadUsers(users));
+    dispatch(loadChannelsThunk());
   };
 
 export const userLoginThunk = (email: string): any =>
@@ -42,4 +44,5 @@ export const userLoginThunk = (email: string): any =>
 
     const users = await getUsers();
     dispatch(loadUsers(users));
+    dispatch(loadChannelsThunk());
   };
