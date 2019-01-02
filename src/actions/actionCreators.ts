@@ -11,8 +11,6 @@ import {
   MESSAGE_UPVOTE,
   MESSAGE_DOWNVOTE,
   MESSAGE_DELETE,
-  CHANNEL_ORDER_UP,
-  CHANNEL_ORDER_DOWN,
   USER_LOGIN,
   CHANNEL_ORDER_CHANGE
 } from '../constants/actionTypes';
@@ -42,20 +40,6 @@ export const renameChannel = (channel: IChannel): Action => ({
   type: CHANNEL_RENAME,
   payload: {
     channel
-  }
-});
-
-export const channelOrderUp = (channelId: Uuid): Action => ({
-  type: CHANNEL_ORDER_UP,
-  payload: {
-    channelId
-  }
-});
-
-export const channelOrderDown = (channelId: Uuid): Action => ({
-  type: CHANNEL_ORDER_DOWN,
-  payload: {
-    channelId
   }
 });
 
