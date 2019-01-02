@@ -1,4 +1,3 @@
-import * as uuid from 'uuid';
 import * as Immutable from 'immutable';
 
 import { Action, Uuid, IMessage, IChannel } from '../common/interfaces';
@@ -50,17 +49,11 @@ export const channelOrderChange = (channelOrder: Immutable.List<Uuid>): Action =
   }
 });
 
-export const sendMessage = (channelId: Uuid, text: string): Action => ({
+export const sendMessage = (channelId: Uuid, message: IMessage): Action => ({
   type: MESSAGE_SEND,
   payload: {
     channelId,
-    message: {
-      id: uuid(),
-      author: 'asdf',
-      score: 0,
-      text,
-      createdAt: Date.now()
-    } as IMessage
+    message
   }
 });
 
