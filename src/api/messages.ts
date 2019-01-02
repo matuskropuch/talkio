@@ -41,6 +41,6 @@ export const updateMessage = async (channelId: Uuid, message: IMessage): Promise
   return mapResponseToMessage(data);
 };
 
-export const deleteMessage = async (channelId: Uuid, message: IMessage): Promise<void> => {
-  await axios.delete(`${baseUrl}/channel/${channelId}/message/${message.id}`);
+export const deleteMessage = async (channelId: Uuid, messageId: Uuid): Promise<void> => {
+  await axios.delete(`${baseUrl}/channel/${channelId}/message/${messageId}`);
 };

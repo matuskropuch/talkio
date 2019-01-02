@@ -8,7 +8,7 @@ import {
   IChannelMessageListDispatchProps
 } from '../components/ChannelMessageList';
 import { IState, Uuid, IMessage } from '../common/interfaces';
-import { deleteMessage } from '../actions/actionCreators';
+import { deleteMessageThunk } from '../thunks/deleteMessage';
 
 const mapStateToProps = (state: IState): IChannelMessageListStateProps => {
   const activeChannel = state.channels.all.get(state.activeChannel);
@@ -25,7 +25,7 @@ const mapStateToProps = (state: IState): IChannelMessageListStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): IChannelMessageListDispatchProps => ({
-  onMessageDelete: (channelId: Uuid, messageId: Uuid) => dispatch(deleteMessage(channelId, messageId))
+  onMessageDelete: (channelId: Uuid, messageId: Uuid) => dispatch(deleteMessageThunk(channelId, messageId))
 });
 
 export const ChannelMessageListContainer = connect(mapStateToProps, mapDispatchToProps)(ChannelMessageList);
