@@ -11,7 +11,8 @@ import {
   MESSAGE_DOWNVOTE,
   MESSAGE_DELETE,
   USER_LOGIN,
-  CHANNEL_ORDER_CHANGE
+  CHANNEL_ORDER_CHANGE,
+  MESSAGES_LOAD
 } from '../constants/actionTypes';
 
 export const createChannel = (channel: IChannel): Action => ({
@@ -46,6 +47,14 @@ export const channelOrderChange = (channelOrder: Immutable.List<Uuid>): Action =
   type: CHANNEL_ORDER_CHANGE,
   payload: {
     channelOrder
+  }
+});
+
+export const loadMessagesForChannel = (channelId: Uuid, messages: Immutable.OrderedMap<Uuid, IMessage>): Action => ({
+  type: MESSAGES_LOAD,
+  payload: {
+    channelId,
+    messages
   }
 });
 

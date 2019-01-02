@@ -11,7 +11,8 @@ import {
   MESSAGE_DOWNVOTE,
   MESSAGE_DELETE,
   CHANNELS_LOAD,
-  CHANNEL_ORDER_CHANGE
+  CHANNEL_ORDER_CHANGE,
+  MESSAGES_LOAD
 } from '../constants/actionTypes';
 
 const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
@@ -54,13 +55,25 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
       return prevState.set(channel.id, channel);
     }
 
+    case MESSAGES_LOAD: {
+      const { channelId, messages } = action.payload;
+      const oldChannel = getChannel('Loading messages to nonexistent channel');
+
+      const newChannel: IChannel = {
+        ...oldChannel,
+        messages
+      };
+
+      return prevState.set(channelId, newChannel);
+    }
+
     case MESSAGE_SEND: {
       const { channelId, message } = action.payload;
       const oldChannel = getChannel('Submitting message to nonexistent channel');
 
       const newChannel: IChannel = {
         ...oldChannel,
-        messages: oldChannel.messages.set(message.id, message)
+        messages: oldChannel.messages.reverse().set(message.id, message).reverse()
       };
 
       return prevState.set(channelId, newChannel);

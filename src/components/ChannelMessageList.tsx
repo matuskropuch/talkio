@@ -23,7 +23,6 @@ export class ChannelMessageList extends React.PureComponent<IChannelMessageListP
   render(): JSX.Element {
     const messages = this.props.messages
       .toList()
-      .sort((m1, m2) => m2.createdAt - m1.createdAt)
       .map(message => (
         <ChannelMessage
           id={message.id}
