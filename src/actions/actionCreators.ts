@@ -12,7 +12,8 @@ import {
   MESSAGE_DELETE,
   USER_LOGIN,
   CHANNEL_ORDER_CHANGE,
-  MESSAGES_LOAD
+  MESSAGES_LOAD,
+  USER_LOGOUT
 } from '../constants/actionTypes';
 
 export const createChannel = (channel: IChannel): Action => ({
@@ -95,4 +96,8 @@ export const userLogin = (email: string): Action => ({
   payload: {
     email
   }
+});
+
+export const userLogout = (): Action => ({
+  type: USER_LOGOUT
 });

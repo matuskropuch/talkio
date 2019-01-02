@@ -2,7 +2,11 @@ import * as React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export class ProfileButton extends React.PureComponent {
+export interface IProfileButtonDispatchProps {
+  onLogout: () => void;
+}
+
+export class ProfileButton extends React.PureComponent<IProfileButtonDispatchProps, {}> {
   render(): JSX.Element {
     return (
       <div className="nav-item dropdown">
@@ -11,7 +15,7 @@ export class ProfileButton extends React.PureComponent {
         </a>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <a className="dropdown-item" href="#">Profile</a>
-          <a className="dropdown-item" href="#">Logout</a>
+          <a onClick={this.props.onLogout} className="dropdown-item" href="#">Logout</a>
         </div>
       </div>
     );

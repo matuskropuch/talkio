@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ProfileButton } from './ProfileButton';
+import { ProfileButtonContainer } from '../containers/ProfileButtonContainer';
 
 export class Navbar extends React.PureComponent {
   render(): JSX.Element {
@@ -9,7 +9,7 @@ export class Navbar extends React.PureComponent {
         <a className="navbar-brand" href="#">Talkio</a>
 
         <div className="navbar-nav ml-auto">
-          <ProfileButton />
+          <ProfileButtonContainer />
         </div>
       </nav>
     );
