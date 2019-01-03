@@ -14,7 +14,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/rootReducer.ts';
-import { defaultState } from './defaultState.ts';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +21,7 @@ import { faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser } from '@
 import { AppContainer } from './containers/AppContainer.tsx';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, defaultState, composeEnhancers(
+const store = createStore(rootReducer, {}, composeEnhancers(
   applyMiddleware(thunk))
 );
 
