@@ -13,7 +13,8 @@ import {
   USER_LOGIN,
   CHANNEL_ORDER_CHANGE,
   MESSAGES_LOAD,
-  USER_LOGOUT
+  USER_LOGOUT,
+  CHANNEL_ADD_ALLOWED_USER
 } from '../constants/actionTypes';
 
 export const createChannel = (channel: IChannel): Action => ({
@@ -48,6 +49,13 @@ export const channelOrderChange = (channelOrder: Immutable.List<Uuid>): Action =
   type: CHANNEL_ORDER_CHANGE,
   payload: {
     channelOrder
+  }
+});
+
+export const channelAddAllowedUser = (channel: IChannel): Action => ({
+  type: CHANNEL_ADD_ALLOWED_USER,
+  payload: {
+    channel
   }
 });
 

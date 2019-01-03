@@ -37,7 +37,7 @@ export class ChannelAddAllowedUser extends React.PureComponent<IChannelAddAllowe
     this.props.onAllowedUserAdd(this.state.email);
   }
 
-  onButtonClick = (_: React.MouseEvent<HTMLButtonElement>) => {
+  onAnchorClick = (_: React.MouseEvent<HTMLAnchorElement>) => {
     this.setState(() => ({ editing: true }));
   }
 
@@ -45,7 +45,7 @@ export class ChannelAddAllowedUser extends React.PureComponent<IChannelAddAllowe
     if (this.state.editing) {
       return (
         <form className="form-inline mt-2" action="#" method="post" onSubmit={this.onEmailSubmit} >
-          <div className="form-group mx-auto">
+          <div className="form-group mr-auto">
             <input
               type="text"
               className="form-control form-control-sm"
@@ -58,7 +58,7 @@ export class ChannelAddAllowedUser extends React.PureComponent<IChannelAddAllowe
     }
 
     return (
-      <a href="#">
+      <a onClick={this.onAnchorClick} href="#">
         <FontAwesomeIcon icon="user-plus" />
       </a>
     );

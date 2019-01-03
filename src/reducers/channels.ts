@@ -12,7 +12,8 @@ import {
   MESSAGE_DELETE,
   CHANNELS_LOAD,
   CHANNEL_ORDER_CHANGE,
-  MESSAGES_LOAD
+  MESSAGES_LOAD,
+  CHANNEL_ADD_ALLOWED_USER
 } from '../constants/actionTypes';
 
 const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action: Action): Immutable.Map<Uuid, IChannel> => {
@@ -49,6 +50,7 @@ const all = (prevState: Immutable.Map<Uuid, IChannel> = Immutable.Map(), action:
       return prevState.delete(action.payload.channelId);
     }
 
+    case CHANNEL_ADD_ALLOWED_USER:
     case CHANNEL_RENAME: {
       const { channel } = action.payload;
 
