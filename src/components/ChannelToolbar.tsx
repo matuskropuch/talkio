@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ChannelNameEditorContainer } from '../containers/ChannelNameEditorContainer';
 import { Uuid } from '../common/interfaces';
+import { ChannelAddAllowedUserContainer } from '../containers/ChannelAddAllowedUserContainer';
 
 export interface IChannelToolbarDispatchProps {
   readonly onChannelDelete: (id: Uuid) => void;
@@ -22,9 +23,7 @@ export class ChannelToolbar extends React.PureComponent<IChannelToolbarProps, {}
           <ChannelNameEditorContainer />
         </div>
         <div className="flex-grow-1 pr-4 my-auto">
-          <a href="#">
-            <FontAwesomeIcon icon="user-plus" />
-          </a>
+          <ChannelAddAllowedUserContainer />
         </div>
         <a href="#" className="text-danger pr-4 my-auto" onClick={() => this.props.onChannelDelete(this.props.channelId)}>
           <FontAwesomeIcon icon="trash" />
