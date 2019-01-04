@@ -2,14 +2,14 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface IChannelAddAllowedUserDispatchProps {
-  onAllowedUserAdd: (email: string) => void;
+  readonly onAllowedUserAdd: (email: string) => void;
 }
 
 type IChannelAddAllowedUserProps = IChannelAddAllowedUserDispatchProps;
 
 interface IChannelAddAllowedUserState {
-  editing: boolean;
-  email: string;
+  readonly editing: boolean;
+  readonly email: string;
 }
 
 const defaultState = {
