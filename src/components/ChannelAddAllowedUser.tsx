@@ -32,9 +32,11 @@ export class ChannelAddAllowedUser extends React.PureComponent<IChannelAddAllowe
 
   onEmailSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.setState(() => defaultState);
 
-    this.props.onAllowedUserAdd(this.state.email);
+    if (this.state.email !== '') {
+      this.props.onAllowedUserAdd(this.state.email);
+    }
+    this.setState(() => defaultState);
   }
 
   onAnchorClick = (_: React.MouseEvent<HTMLAnchorElement>) => {

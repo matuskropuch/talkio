@@ -40,7 +40,9 @@ export class ChannelNameEditor extends React.PureComponent<ChannelNameEditorProp
   onNameSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    this.props.onChannelRename(this.props.channelId, this.state.partialChannelName);
+    if (this.state.partialChannelName !== '') {
+      this.props.onChannelRename(this.props.channelId, this.state.partialChannelName);
+    }
     this.setState(() => ({ editing: false }));
   }
 
