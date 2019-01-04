@@ -8,6 +8,8 @@ interface ChannelMessageProps {
   readonly id: Uuid;
   readonly text: string;
   readonly score: number;
+  readonly avatarUrl: string;
+  readonly name: string;
   readonly onDelete: (messageId: Uuid) => void;
 }
 
@@ -17,9 +19,10 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
       <div className="card bg-light mx-3 mb-3 flex-shrink-0">
         <div className="card-body d-flex">
           <div className="pr-3">
-            <img src="https://placeimg.com/480/480/people" alt="user picture" className="rounded" style={{ height: '48px', width: '48px' }} />
+            <img src={this.props.avatarUrl} alt="user picture" className="rounded" style={{ height: '48px', width: '48px' }} />
           </div>
           <div className="flex-grow-1 pr-3">
+            <p><b>{this.props.name}</b></p>
             {this.props.text}
           </div>
           <a href="#" className="text-danger" onClick={() => this.props.onDelete(this.props.id)}>

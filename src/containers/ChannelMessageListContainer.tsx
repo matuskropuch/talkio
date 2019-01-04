@@ -20,7 +20,8 @@ const mapStateToProps = (state: IState): IChannelMessageListStateProps => {
 
   return {
     activeChannel: state.activeChannel,
-    messages
+    messages,
+    users: state.users
   };
 };
 

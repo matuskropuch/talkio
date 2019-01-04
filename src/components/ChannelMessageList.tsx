@@ -2,11 +2,12 @@ import * as React from 'react';
 import * as Immutable from 'immutable';
 
 import { ChannelMessage } from './ChannelMessage';
-import { IMessage, Uuid } from '../common/interfaces';
+import { IMessage, Uuid, IUser } from '../common/interfaces';
 
 export interface IChannelMessageListStateProps {
   readonly activeChannel: Uuid;
   readonly messages: Immutable.Map<Uuid, IMessage>;
+  readonly users: Immutable.Map<Uuid, IUser>;
 }
 
 export interface IChannelMessageListDispatchProps {
@@ -23,14 +24,24 @@ export class ChannelMessageList extends React.PureComponent<IChannelMessageListP
   render(): JSX.Element {
     const messages = this.props.messages
       .toList()
-      .map(message => (
-        <ChannelMessage
-          id={message.id}
-          text={message.text}
-          score={message.score}
-          key={message.id}
-          onDelete={this.onDelete} />
-        )
+      .map(message => {
+        const author = this.props.users.get(message.author);
+        if (author === undefined) {
+          return null;
+        }
+
+        return (
+          <ChannelMessage
+            id={message.id}
+            text={message.text}
+            score={message.score}
+            key={message.id}
+            avatarUrl={author.avatarUrl}
+            name={author.name}
+            onDelete={this.onDelete}
+            />
+        );
+        }
       );
 
     return (
