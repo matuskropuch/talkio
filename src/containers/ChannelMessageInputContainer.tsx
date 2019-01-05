@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ContentState } from 'draft-js';
 
-import { ChannelMessageInput, IChannelMessageInputStateProps, IChannelMessageInputDispatchProps } from '../components/ChannelMessageInput';
+import { ChannelMessageInput, IChannelMessageInputStateProps, IChannelMessageInputDispatchProps } from '../components/rich-text-editing/ChannelMessageInput';
 import { IState, Uuid } from '../common/interfaces';
 import { sendMessageThunk } from '../thunks/sendMessage';
 

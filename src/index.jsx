@@ -16,7 +16,7 @@ import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/rootReducer.ts';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser, faLink } from '@fortawesome/free-solid-svg-icons';
 
 import { AppContainer } from './containers/AppContainer.tsx';
 
@@ -25,7 +25,7 @@ const store = createStore(rootReducer, {}, composeEnhancers(
   applyMiddleware(thunk))
 );
 
-library.add(faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser);
+library.add(faUser, faUserPlus, faTrash, faArrowUp, faArrowDown, faEraser, faLink);
 
 ReactDOM.render(
   <Provider store={store}>

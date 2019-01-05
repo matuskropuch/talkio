@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Editor, EditorState, ContentState, RichUtils, KeyBindingUtil, getDefaultKeyBinding } from 'draft-js';
+import { Editor, EditorState, ContentState, RichUtils, KeyBindingUtil, getDefaultKeyBinding, CompositeDecorator, ContentBlock } from 'draft-js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Uuid } from '../common/interfaces';
+import { Uuid } from '../../common/interfaces';
+import { Link } from './Link';
 
 export interface IChannelMessageInputStateProps {
   readonly channelId: Uuid;
@@ -15,15 +17,42 @@ type IChannelMessageInputProps = IChannelMessageInputStateProps & IChannelMessag
 
 interface IChannelMessageInputLocalState {
   readonly editorState: EditorState;
+  readonly showURLInput: boolean;
+  readonly urlValue: string;
 }
+
+export const findLinkEntities = (contentBlock: ContentBlock, callback: any, contentState: ContentState) => {
+  contentBlock.findEntityRanges(
+    (character) => {
+      const entityKey = character.getEntity();
+      return (
+        entityKey !== null &&
+        contentState.getEntity(entityKey).getType() === 'LINK'
+      );
+    },
+    callback
+  );
+};
+
+export const decorator = new CompositeDecorator([
+  {
+    strategy: findLinkEntities,
+    component: Link,
+  },
+]);
 
 export class ChannelMessageInput extends React.PureComponent<IChannelMessageInputProps, IChannelMessageInputLocalState> {
   editor: Editor;
+  urlInput: HTMLInputElement;
 
   constructor(props: IChannelMessageInputProps) {
     super(props);
 
-    this.state = { editorState: EditorState.createEmpty() };
+    this.state = {
+      editorState: EditorState.createEmpty(decorator),
+      showURLInput: false,
+      urlValue: ''
+    };
   }
 
   componentDidMount() {
@@ -31,6 +60,7 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
   }
 
   setEditorRef = (editor: Editor) => this.editor = editor;
+  setUrlRef = (urlInput: HTMLInputElement) => this.urlInput = urlInput;
 
   onMessageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -88,7 +118,84 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH'));
   }
 
+  promptForLink = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    if (!selection.isCollapsed()) {
+      const contentState = editorState.getCurrentContent();
+      const startKey = editorState.getSelection().getStartKey();
+      const startOffset = editorState.getSelection().getStartOffset();
+      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+
+      let url = '';
+      if (linkKey) {
+        const linkInstance = contentState.getEntity(linkKey);
+        url = linkInstance.getData().url;
+      }
+
+      this.setState(() => ({
+        showURLInput: true,
+        urlValue: url,
+      }), () => {
+        setTimeout(() => this.urlInput.focus(), 0);
+      });
+    }
+  }
+
+  onURLChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newUrl = event.target.value;
+    this.setState(() => ({ urlValue: newUrl }));
+  }
+
+  confirmLink = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { editorState, urlValue } = this.state;
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      'LINK',
+      'MUTABLE',
+      { url: urlValue.indexOf('http') !== -1 || urlValue.indexOf('https') !== -1 ? urlValue : `https:\\\\${urlValue}` }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
+    this.setState(() => ({
+      editorState: RichUtils.toggleLink(
+        newEditorState,
+        newEditorState.getSelection(),
+        entityKey
+      ),
+      showURLInput: false,
+      urlValue: '',
+    }), () => {
+      setTimeout(() => this.editor.focus(), 0);
+    });
+  }
+
   render(): JSX.Element {
+    let urlInput = (
+      <button onMouseDown={this.promptForLink} className="btn btn-outline-secondary" type="button">
+        <FontAwesomeIcon icon="link" />
+      </button>
+    );
+    if (this.state.showURLInput) {
+      urlInput = (
+        <div className="form-inline" style={{ display: 'inline' }}>
+          <input
+            onChange={this.onURLChange}
+            type="text"
+            value={this.state.urlValue}
+            ref={this.setUrlRef}
+            className="form-control"
+            placeholder="Enter URL"
+          />
+          <button onMouseDown={this.confirmLink} className="btn btn-outline-secondary" type="button">
+            Confirm
+          </button>
+        </div>
+      );
+    }
     return (
       <form action="#" method="post" onSubmit={this.onMessageSubmit}>
         <div className="form-group mx-3">
@@ -96,6 +203,7 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
             <button onMouseDown={this.onBoldClick} className="btn btn-outline-secondary" type="button"><b>B</b></button>
             <button onMouseDown={this.onItalicClick} className="btn btn-outline-secondary" type="button"><i>I</i></button>
             <button onMouseDown={this.onStrikethroughClick} className="btn btn-outline-secondary" type="button"><s>S</s></button>
+            {urlInput}
           </div>
           <div className="input-group flex-d">
             <div className="flex-grow-1">

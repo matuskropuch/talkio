@@ -4,8 +4,9 @@ import { ContentState, Editor, EditorState } from 'draft-js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MessageVoteContainer } from '../containers/MessageVoteContainer';
 import { Uuid } from '../common/interfaces';
+import { decorator } from './rich-text-editing/ChannelMessageInput';
 
-interface ChannelMessageProps {
+interface IChannelMessageProps {
   readonly id: Uuid;
   readonly text: ContentState;
   readonly score: number;
@@ -14,7 +15,7 @@ interface ChannelMessageProps {
   readonly onDelete: (messageId: Uuid) => void;
 }
 
-export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}> {
+export class ChannelMessage extends React.PureComponent<IChannelMessageProps, {}> {
   render(): JSX.Element {
     return (
       <div className="card bg-light mx-3 mb-3 flex-shrink-0">
@@ -25,7 +26,7 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
           <div className="flex-grow-1 pr-3">
             <p><b>{this.props.name}</b></p>
             <Editor
-              editorState={EditorState.createWithContent(this.props.text)}
+              editorState={EditorState.createWithContent(this.props.text, decorator)}
               onChange={() => { return; }}
               readOnly
             />
