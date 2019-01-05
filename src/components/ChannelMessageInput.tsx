@@ -49,11 +49,27 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   }
 
+  onItalicClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
+  }
+
+  onStrikethroughClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH'));
+  }
+
   render(): JSX.Element {
     return (
       <form action="#" method="post" onSubmit={this.onMessageSubmit}>
         <div className="form-group mx-3">
-          <button onMouseDown={this.onBoldClick} className="btn btn-outline-secondary" type="button">Bold</button>
+          <div className="mb-1">
+            <button onMouseDown={this.onBoldClick} className="btn btn-outline-secondary" type="button"><b>B</b></button>
+            <button onMouseDown={this.onItalicClick} className="btn btn-outline-secondary" type="button"><i>I</i></button>
+            <button onMouseDown={this.onStrikethroughClick} className="btn btn-outline-secondary" type="button"><s>S</s></button>
+          </div>
           <div className="input-group flex-d">
             <div className="flex-grow-1">
               <div style={{ border: '1px solid grey', borderRadius: '5px 0 0 5px', padding: '6px' }}>
