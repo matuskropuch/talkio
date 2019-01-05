@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Editor, EditorState, ContentState, RichUtils } from 'draft-js';
+import { Editor, EditorState, ContentState, RichUtils, KeyBindingUtil, getDefaultKeyBinding } from 'draft-js';
 
 import { Uuid } from '../common/interfaces';
 
@@ -41,6 +41,33 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
     }
   };
 
+  keyBindingFn = (event: React.KeyboardEvent) => {
+    if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 83) {
+      return 'strikethrough';
+    }
+
+    return getDefaultKeyBinding(event);
+  }
+
+  handleKeyCommand = (command: string) => {
+    let newState;
+    if (command === 'bold') {
+      newState = RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD');
+    }
+    if (command === 'italic') {
+      newState = RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC');
+    }
+    if (command === 'strikethrough') {
+      newState = RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH');
+    }
+
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  }
+
   onChange = (editorState: EditorState) => this.setState(() => ({ editorState }));
 
   onBoldClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -77,6 +104,8 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
                   editorState={this.state.editorState}
                   onChange={this.onChange}
                   ref={this.setEditorRef}
+                  keyBindingFn={this.keyBindingFn}
+                  handleKeyCommand={this.handleKeyCommand}
                   />
               </div>
             </div>
