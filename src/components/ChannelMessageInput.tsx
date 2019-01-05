@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Editor, EditorState, ContentState } from 'draft-js';
+import { Editor, EditorState, ContentState, RichUtils } from 'draft-js';
 
 import { Uuid } from '../common/interfaces';
 
@@ -18,11 +18,19 @@ interface IChannelMessageInputLocalState {
 }
 
 export class ChannelMessageInput extends React.PureComponent<IChannelMessageInputProps, IChannelMessageInputLocalState> {
+  editor: Editor;
+
   constructor(props: IChannelMessageInputProps) {
     super(props);
 
     this.state = { editorState: EditorState.createEmpty() };
   }
+
+  componentDidMount() {
+    this.editor.focus();
+  }
+
+  setEditorRef = (editor: Editor) => this.editor = editor;
 
   onMessageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,16 +43,24 @@ export class ChannelMessageInput extends React.PureComponent<IChannelMessageInpu
 
   onChange = (editorState: EditorState) => this.setState(() => ({ editorState }));
 
+  onBoldClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+  }
+
   render(): JSX.Element {
     return (
       <form action="#" method="post" onSubmit={this.onMessageSubmit}>
         <div className="form-group mx-3">
+          <button onMouseDown={this.onBoldClick} className="btn btn-outline-secondary" type="button">Bold</button>
           <div className="input-group flex-d">
             <div className="flex-grow-1">
               <div style={{ border: '1px solid grey', borderRadius: '5px 0 0 5px', padding: '6px' }}>
                 <Editor
                   editorState={this.state.editorState}
                   onChange={this.onChange}
+                  ref={this.setEditorRef}
                   />
               </div>
             </div>
