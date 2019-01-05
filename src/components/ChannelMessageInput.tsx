@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Editor, EditorState, ContentState } from 'draft-js';
+
 import { Uuid } from '../common/interfaces';
 
 export interface IChannelMessageInputStateProps {
@@ -6,52 +8,46 @@ export interface IChannelMessageInputStateProps {
 }
 
 export interface IChannelMessageInputDispatchProps {
-  readonly onMessageSend: (channelId: Uuid, text: string) => void;
+  readonly onMessageSend: (channelId: Uuid, text: ContentState) => void;
 }
 
 type IChannelMessageInputProps = IChannelMessageInputStateProps & IChannelMessageInputDispatchProps;
 
 interface IChannelMessageInputLocalState {
-  readonly text: string;
+  readonly editorState: EditorState;
 }
 
 export class ChannelMessageInput extends React.PureComponent<IChannelMessageInputProps, IChannelMessageInputLocalState> {
   constructor(props: IChannelMessageInputProps) {
     super(props);
 
-    this.state = {
-      text: ''
-    };
+    this.state = { editorState: EditorState.createEmpty() };
   }
 
   onMessageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (this.state.text !== '') {
-      this.props.onMessageSend(this.props.channelId, this.state.text);
-      this.setState(() => ({ text: '' }));
+    if (this.state.editorState.getCurrentContent().hasText()) {
+      this.props.onMessageSend(this.props.channelId, this.state.editorState.getCurrentContent());
+      this.setState(() => ({ editorState: EditorState.createEmpty() }));
     }
   };
 
-  onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newText = event.target.value;
-
-    this.setState(() => ({ text: newText }));
-  }
+  onChange = (editorState: EditorState) => this.setState(() => ({ editorState }));
 
   render(): JSX.Element {
     return (
       <form action="#" method="post" onSubmit={this.onMessageSubmit}>
         <div className="form-group mx-3">
-          <div className="input-group">
-            <input
-              value={this.state.text}
-              onChange={this.onTextChange}
-              type="text"
-              className="form-control"
-              placeholder="Tell us what you think about"
-              aria-label="Tell us what you think about"
-              aria-describedby="send-button" />
+          <div className="input-group flex-d">
+            <div className="flex-grow-1">
+              <div style={{ border: '1px solid grey', borderRadius: '5px 0 0 5px', padding: '6px' }}>
+                <Editor
+                  editorState={this.state.editorState}
+                  onChange={this.onChange}
+                  />
+              </div>
+            </div>
             <div className="input-group-append">
               <button className="btn btn-success" type="submit" id="send-button">Send</button>
             </div>

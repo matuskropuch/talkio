@@ -1,19 +1,20 @@
 import * as Immutable from 'immutable';
 import axios from 'axios';
+import { ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
 import { baseUrl } from './config';
 import { Uuid, IMessage } from '../common/interfaces';
 
 const mapResponseToMessage = (message: any): IMessage => ({
   id: message.id,
-  text: message.value,
+  text: convertFromRaw(JSON.parse(message.value)),
   author: message.createdBy,
   createdAt: message.createdAt,
   score: message.customData.score
 });
 
-const mapMessageToJson = (text: string, score: number): object => ({
-  value: text,
+const mapMessageToJson = (text: ContentState, score: number): object => ({
+  value: JSON.stringify(convertToRaw(text)),
   customData: {
     score
   }
@@ -27,7 +28,7 @@ export const getMessagesForChannel = async (channelId: Uuid): Promise<Immutable.
   );
 };
 
-export const postMessage = async (channelId: Uuid, text: string, score: number): Promise<IMessage> => {
+export const postMessage = async (channelId: Uuid, text: ContentState, score: number): Promise<IMessage> => {
   const messageData = mapMessageToJson(text, score);
 
   const { data } = await axios.post(`${baseUrl}/channel/${channelId}/message`, messageData);

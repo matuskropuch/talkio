@@ -1,4 +1,5 @@
 import * as Immutable from 'immutable';
+import { ContentState } from 'draft-js';
 
 export type Uuid = string;
 export type UnixTime = number;
@@ -10,7 +11,7 @@ export interface Action {
 
 export interface IMessage {
   readonly id: Uuid;
-  readonly text: string;
+  readonly text: ContentState;
   readonly author: string;
   readonly score: number;
   readonly createdAt: UnixTime;

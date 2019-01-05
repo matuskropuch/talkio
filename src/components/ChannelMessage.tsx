@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ContentState, Editor, EditorState } from 'draft-js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MessageVoteContainer } from '../containers/MessageVoteContainer';
@@ -6,7 +7,7 @@ import { Uuid } from '../common/interfaces';
 
 interface ChannelMessageProps {
   readonly id: Uuid;
-  readonly text: string;
+  readonly text: ContentState;
   readonly score: number;
   readonly avatarUrl: string;
   readonly name: string;
@@ -23,7 +24,11 @@ export class ChannelMessage extends React.PureComponent<ChannelMessageProps, {}>
           </div>
           <div className="flex-grow-1 pr-3">
             <p><b>{this.props.name}</b></p>
-            {this.props.text}
+            <Editor
+              editorState={EditorState.createWithContent(this.props.text)}
+              onChange={() => { return; }}
+              readOnly
+            />
           </div>
           <a href="#" className="text-danger" onClick={() => this.props.onDelete(this.props.id)}>
             <FontAwesomeIcon icon="eraser" />
