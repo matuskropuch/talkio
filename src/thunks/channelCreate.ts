@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import * as Immutable from 'immutable';
 
 import { IState } from '../common/interfaces';
-import { createChannel } from '../actions/actionCreators';
+import { createChannel, selectChannel } from '../actions/actionCreators';
 import { postChannel } from '../api/channels';
 
 export const createChannelThunk = (name: string): any =>
@@ -11,4 +11,5 @@ export const createChannelThunk = (name: string): any =>
     const channel = await postChannel(name, Immutable.Set([creatorId]));
 
     dispatch(createChannel(channel));
+    dispatch(selectChannel(channel.id));
   };
