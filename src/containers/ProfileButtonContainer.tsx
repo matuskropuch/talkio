@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import { ProfileButton, IProfileButtonDispatchProps } from '../components/ProfileButton';
 import { Dispatch } from 'redux';
-import { userLogout } from '../actions/actionCreators';
+import { userLogout, openProfile } from '../actions/actionCreators';
 
 const mapDispatchToProps = (dispatch: Dispatch): IProfileButtonDispatchProps => ({
+  onProfileOpen: () => dispatch(openProfile()),
   onLogout: () => dispatch(userLogout())
 });
 

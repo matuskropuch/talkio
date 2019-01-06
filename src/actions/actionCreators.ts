@@ -14,7 +14,8 @@ import {
   CHANNEL_ORDER_CHANGE,
   MESSAGES_LOAD,
   USER_LOGOUT,
-  CHANNEL_ADD_ALLOWED_USER
+  CHANNEL_ADD_ALLOWED_USER,
+  TOGGLE_PROFILE_WINDOW
 } from '../constants/actionTypes';
 
 export const createChannel = (channel: IChannel): Action => ({
@@ -108,4 +109,8 @@ export const userLogin = (email: string): Action => ({
 
 export const userLogout = (): Action => ({
   type: USER_LOGOUT
+});
+
+export const openProfile = (): Action => ({
+  type: TOGGLE_PROFILE_WINDOW
 });

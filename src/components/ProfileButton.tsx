@@ -3,6 +3,7 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface IProfileButtonDispatchProps {
+  onProfileOpen: () => void;
   onLogout: () => void;
 }
 
@@ -14,7 +15,7 @@ export class ProfileButton extends React.PureComponent<IProfileButtonDispatchPro
           <FontAwesomeIcon icon="user" />
         </a>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" href="#">Profile</a>
+          <a onClick={this.props.onProfileOpen} className="dropdown-item" href="#">Profile</a>
           <a onClick={this.props.onLogout} className="dropdown-item" href="#">Logout</a>
         </div>
       </div>
