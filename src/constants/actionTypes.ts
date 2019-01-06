@@ -15,5 +15,6 @@ export const MESSAGE_DOWNVOTE = 'MESSAGE_DOWNVOTE';
 export const USERS_LOAD = 'USERS_LOAD';
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_UPDATE = 'USER_UPDATE';
 
 export const TOGGLE_PROFILE_WINDOW = 'TOGGLE_PROFILE_WINDOW';

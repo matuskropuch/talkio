@@ -1,6 +1,6 @@
 import * as Immutable from 'immutable';
 
-import { Action, Uuid, IMessage, IChannel } from '../common/interfaces';
+import { Action, Uuid, IMessage, IChannel, IUser } from '../common/interfaces';
 import {
   CHANNEL_CREATE,
   CHANNEL_SELECT,
@@ -15,7 +15,8 @@ import {
   MESSAGES_LOAD,
   USER_LOGOUT,
   CHANNEL_ADD_ALLOWED_USER,
-  TOGGLE_PROFILE_WINDOW
+  TOGGLE_PROFILE_WINDOW,
+  USER_UPDATE
 } from '../constants/actionTypes';
 
 export const createChannel = (channel: IChannel): Action => ({
@@ -111,6 +112,17 @@ export const userLogout = (): Action => ({
   type: USER_LOGOUT
 });
 
+export const userUpdate = (user: IUser): Action => ({
+  type: USER_UPDATE,
+  payload: {
+    user
+  }
+});
+
 export const openProfile = (): Action => ({
+  type: TOGGLE_PROFILE_WINDOW
+});
+
+export const closeProfile = (): Action => ({
   type: TOGGLE_PROFILE_WINDOW
 });
