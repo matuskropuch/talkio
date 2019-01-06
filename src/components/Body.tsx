@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Sidebar } from './Sidebar';
 import { ChannelDetail } from './ChannelDetail';
-import { Profile } from './Profile';
+import { ProfileContainer } from '../containers/ProfileContainer';
 
 export interface IBodyStateProps {
   isProfileOpen: boolean;
@@ -11,7 +11,7 @@ export interface IBodyStateProps {
 export class Body extends React.PureComponent<IBodyStateProps, {}> {
   render() {
     if (this.props.isProfileOpen) {
-      return <Profile />;
+      return <ProfileContainer />;
     }
 
     return (
