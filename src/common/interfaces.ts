@@ -42,5 +42,5 @@ export interface IState {
   currentUser: Uuid;
   activeChannel: Uuid;
   appId: Uuid;
-  openProfile: boolean;
+  isProfileOpen: boolean;
 }
