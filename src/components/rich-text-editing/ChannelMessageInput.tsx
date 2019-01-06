@@ -1,9 +1,19 @@
 import * as React from 'react';
-import { Editor, EditorState, ContentState, RichUtils, KeyBindingUtil, getDefaultKeyBinding, CompositeDecorator, ContentBlock } from 'draft-js';
+import {
+  Editor,
+  EditorState,
+  ContentState,
+  RichUtils,
+  KeyBindingUtil,
+  getDefaultKeyBinding,
+  CompositeDecorator,
+  ContentBlock
+} from 'draft-js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Uuid } from '../../common/interfaces';
 import { Link } from './Link';
+import { Mention } from './Mention';
 
 export interface IChannelMessageInputStateProps {
   readonly channelId: Uuid;
@@ -34,11 +44,27 @@ export const findLinkEntities = (contentBlock: ContentBlock, callback: any, cont
   );
 };
 
+const findWithRegex = (regex: RegExp, contentBlock: ContentBlock, callback: (start: number, end: number) => void) => {
+  const text = contentBlock.getText();
+  let matchArr, start;
+  // tslint:disable-next-line
+  while ((matchArr = regex.exec(text)) !== null) {
+    start = matchArr.index;
+    callback(start, start + matchArr[0].length);
+  }
+};
+
 export const decorator = new CompositeDecorator([
   {
     strategy: findLinkEntities,
     component: Link,
   },
+  {
+    strategy: (contentBlock, callback) => {
+      findWithRegex(/@[a-zA-Z0-9\.]+/g, contentBlock, callback);
+    },
+    component: Mention
+  }
 ]);
 
 export class ChannelMessageInput extends React.PureComponent<IChannelMessageInputProps, IChannelMessageInputLocalState> {
